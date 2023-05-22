@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:scrollbarThumbHorizontal="@drawable/me"
+    android:scrollbarThumbVertical="@drawable/me"
+    android:scrollbarTrackVertical="@drawable/me"
+    android:id="@+id/about"
+    android:gravity=""
+    >
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:autoLink="all"
+        android:text="今日课表^_^"
+        android:layout_gravity="center"
+        android:textColor="@color/text_gray"
+        android:layout_marginBottom="20dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:textColor="@color/text_gray"
+        android:autoLink="all"
+        android:text="制作人员名单："
+        android:layout_marginBottom="20dp"/>
+
+</LinearLayout>

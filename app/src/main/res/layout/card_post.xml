@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/portrait"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        app:shapeAppearance="@style/CircleStyle"
+        android:src="@color/colorPrimary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/like"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
+        android:src="@color/colorAccent"
+        app:layout_constraintStart_toStartOf="@+id/portrait"
+        app:layout_constraintTop_toBottomOf="@+id/post_content" />
+
+    <ImageView
+        android:id="@+id/comment"
+        android:layout_marginLeft="25dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
+        android:src="@color/colorAccent"
+        app:layout_constraintStart_toEndOf="@+id/like"
+        app:layout_constraintTop_toBottomOf="@+id/post_content" />
+
+    <TextView
+        android:id="@+id/post_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="用户名"
+        android:textColor="@color/black"
+        android:textSize="19dp"
+        android:layout_marginLeft="9dp"
+        app:layout_constraintStart_toEndOf="@+id/portrait"
+        app:layout_constraintTop_toTopOf="@+id/portrait" />
+
+    <TextView
+        android:id="@+id/post_userinfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="学院"
+        android:textColor="@color/text_gray"
+        android:textSize="15dp"
+        app:layout_constraintStart_toStartOf="@+id/post_username"
+        app:layout_constraintTop_toBottomOf="@+id/post_username" />
+
+    <TextView
+        android:id="@+id/post_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="这是内容这是内容这是内容这是内容这是内容这是内容这是内容"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/portrait"
+        app:layout_constraintTop_toBottomOf="@+id/portrait" />
+
+    <TextView
+        android:id="@+id/like_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="赞数"
+        android:textColor="@color/black"
+        android:textSize="19dp"
+        app:layout_constraintEnd_toEndOf="@+id/like"
+        app:layout_constraintStart_toStartOf="@+id/like"
+        app:layout_constraintTop_toBottomOf="@+id/like" />
+
+    <TextView
+        android:id="@+id/comment_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="评论"
+        android:textColor="@color/black"
+        android:textSize="19dp"
+        app:layout_constraintEnd_toEndOf="@+id/comment"
+        app:layout_constraintStart_toStartOf="@+id/comment"
+        app:layout_constraintTop_toBottomOf="@+id/like" />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2000-00-00"
+        android:textColor="@color/text_gray"
+        android:textSize="12dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintStart_toStartOf="@+id/portrait"
+        app:layout_constraintTop_toBottomOf="@+id/like_number" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

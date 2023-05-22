@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawerlayout_drawer">
+
+    <!--DrawerLayout最好为界面的根布局-->
+
+    <!--主内容区的布局代码要放在侧滑菜单布局的前面,-->
+    <RelativeLayout
+        android:id="@+id/drawerlayout_main_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/drawer_layout_rl_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:title="主标题"
+            >
+        </androidx.appcompat.widget.Toolbar>
+        <TextView
+            android:id="@+id/drawerlayout_mian_layout_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="这是主内容"
+            android:textColor="@color/colorAccent"
+            android:textSize="22sp" />
+    </RelativeLayout>
+
+    <!--必须设置layout_gravity属性,表示侧滑方向-->
+    <TextView
+        android:id="@+id/drawerlayout_side_tv"
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="left"
+        android:background="@color/white"
+        android:text="侧滑菜单"/>
+</androidx.drawerlayout.widget.DrawerLayout>
