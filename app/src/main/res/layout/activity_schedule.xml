@@ -222,7 +222,7 @@
         android:layout_width="330dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:menu="@menu/nav_menu"
+        app:menu="@menu/schedule_nav_menu"
         app:headerLayout="@layout/nav_header"
         />
 </androidx.drawerlayout.widget.DrawerLayout>

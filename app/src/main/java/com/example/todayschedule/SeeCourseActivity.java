@@ -36,7 +36,7 @@ public class SeeCourseActivity extends AppCompatActivity {
         seeTeacher.setText(seeCourse.getTeacher());
         seeClassRoom.setText(seeCourse.getClassRoom());
 
-        Button delBtn = (Button)findViewById(R.id.btn_del);
+        Button delBtn = (Button)findViewById(R.id.btn_copy);
         delBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -49,7 +49,7 @@ public class SeeCourseActivity extends AppCompatActivity {
         });
 
         //修改按钮被按下时
-        Button ReviseBtn = (Button)findViewById(R.id.btn_revise);
+        Button ReviseBtn = (Button)findViewById(R.id.btn_return);
         ReviseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

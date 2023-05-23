@@ -161,7 +161,7 @@
             android:layout_weight="1" />
 
         <Button
-            android:id="@+id/btn_del"
+            android:id="@+id/btn_copy"
             android:background="@color/colorPrimary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -182,7 +182,7 @@
             android:layout_weight="1" />
 
         <Button
-            android:id="@+id/btn_revise"
+            android:id="@+id/btn_return"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

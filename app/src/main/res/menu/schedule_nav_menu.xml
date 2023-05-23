@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="同步">
+        <menu>
+            <item
+                android:id="@+id/nm_sync"
+                android:title="同步至本地" />
+            <item
+                android:id="@+id/nm_upload"
+                android:title="同步至云端" />
+        </menu>
+
+    </item>
+    <item android:title="导入/导出">
+        <menu>
+            <item
+                android:id="@+id/nm_to_json"
+                android:title="导出课表" />
+            <item
+                android:id="@+id/nm_from_json"
+                android:title="导入课表"/>
+        </menu>
+    </item>
+</menu>

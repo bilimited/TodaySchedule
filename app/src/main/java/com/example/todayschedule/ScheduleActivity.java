@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,6 +30,7 @@ import android.widget.Toast;
 import com.example.todayschedule.bean.Course;
 import com.example.todayschedule.tool.DatabaseHelper;
 import com.google.android.material.navigation.NavigationView;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -99,30 +101,21 @@ public class ScheduleActivity extends AppCompatActivity {
             }
         });
 
-        /*
-        //土法制造 手动ToolBar
-        leftMenu = findViewById(R.id.leftMenu);
-        leftMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DrawerLayout drawerLayout = findViewById(R.id.drawer);
-                drawerLayout.openDrawer(GravityCompat.START);
-            }
-        });*/
-
-
+        /**
+         * navigationView点击事件
+         */
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
-                    case R.id.nm_item1:{
-                        Toast.makeText(ScheduleActivity.this, "在做了在做了", Toast.LENGTH_SHORT).show();
+                    case R.id.nm_to_json:{
+                        dataToJson();
+                        break;
                     }
-                    case R.id.nm_item2:{
-                        Toast.makeText(ScheduleActivity.this, "在做了在做了", Toast.LENGTH_SHORT).show();
-                    }
-                    case R.id.nm_quit:{
-                        Toast.makeText(ScheduleActivity.this, "在做了在做了", Toast.LENGTH_SHORT).show();
+                    case R.id.nm_from_json:{
+                        Intent intent = new Intent(ScheduleActivity.this,InputJsonActivity.class);
+                        startActivityForResult(intent,4);
+                        break;
                     }
                 }
                 return false;
@@ -277,6 +270,83 @@ public class ScheduleActivity extends AppCompatActivity {
         });
     }
 
+    @SuppressLint("Range")
+    private void dataToJson(){
+        Gson gson = new Gson();
+        if(TodaySchedule.isLogged()){
+            ArrayList<Course> coursesList = new ArrayList<>(); //课程列表
+            BmobQuery<Course> bmobQuery = new BmobQuery<>();
+            bmobQuery.findObjects(new FindListener<Course>() {
+                @Override
+                public void done(List<Course> list, BmobException e) {
+                    if(e==null){
+                        String result = gson.toJson(list);
+                        Intent intent = new Intent(ScheduleActivity.this,ShowJsonActivity.class);
+                        intent.putExtra("json",result);
+                        Toast.makeText(ScheduleActivity.this, "导出成功！", Toast.LENGTH_SHORT).show();
+                        startActivity(intent);
+                    }else {
+                        Toast.makeText(ScheduleActivity.this,"读取课程时发生错误："+e.getErrorCode(),Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+        }else {
+            ArrayList<Course> coursesList = new ArrayList<>(); //课程列表
+            SQLiteDatabase sqLiteDatabase =  databaseHelper.getWritableDatabase();
+            Cursor cursor = sqLiteDatabase.rawQuery("select * from courses", null);
+            if (cursor.moveToFirst()) {
+                do {
+                    coursesList.add(new Course(
+                            cursor.getString(cursor.getColumnIndex("course_name")),
+                            cursor.getString(cursor.getColumnIndex("teacher")),
+                            cursor.getString(cursor.getColumnIndex("class_room")),
+                            cursor.getInt(cursor.getColumnIndex("day")),
+                            cursor.getInt(cursor.getColumnIndex("class_start")),
+                            cursor.getInt(cursor.getColumnIndex("class_end"))));
+                } while(cursor.moveToNext());
+            }
+            cursor.close();
+
+            String result = gson.toJson(coursesList);
+            Intent intent = new Intent(ScheduleActivity.this,ShowJsonActivity.class);
+            intent.putExtra("json",result);
+            Toast.makeText(ScheduleActivity.this, "导出成功！", Toast.LENGTH_SHORT).show();
+            startActivity(intent);
+        }
+    }
+
+    private void fromJson(String json,boolean isSync){
+        Gson gson = new Gson();
+        Course[] courses;
+        try {
+            courses = gson.fromJson(json,Course[].class);
+            for(Course course:courses){
+                createLeftView(course);
+                createItemCourseView(course);
+            }
+            Toast.makeText(this, "导入成功!", Toast.LENGTH_SHORT).show();
+            if(isSync){
+                if(!TodaySchedule.isLogged()){
+                    Toast.makeText(this, "你并未登录!", Toast.LENGTH_SHORT).show();
+                    return;
+                }else {
+                    for (Course course:courses){
+                        bmob_saveData(course);
+                    }
+                }
+            }else {
+                clearData();
+                for (Course course:courses){
+                    saveData(course);
+                }
+            }
+        }catch (Exception e){
+            Toast.makeText(this, "解析失败，请检查数据格式是否有误!", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
     //创建"第几节数"视图
     private void createLeftView(Course course) {
         int endNumber = course.getEnd();
@@ -352,6 +422,11 @@ public class ScheduleActivity extends AppCompatActivity {
         }
     }
 
+    private void clearData(){
+        SQLiteDatabase sqLiteDatabase = databaseHelper.getWritableDatabase();
+        sqLiteDatabase.execSQL("Delete from courses where 1=1");
+    }
+
     //ToolBar相关
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -372,6 +447,9 @@ public class ScheduleActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         super.onActivityResult(requestCode, resultCode, data);
+        /*
+            resultCode 通过在开始Activity时调用StartActivityForResult()设置
+         */
         if (requestCode == 0 && resultCode == Activity.RESULT_OK && data != null) {
             Course course = (Course) data.getSerializableExtra("course");
             //创建课程表左边视图(节数)
@@ -443,6 +521,11 @@ public class ScheduleActivity extends AppCompatActivity {
                             String.valueOf(PreCourse.getDay()),
                             String.valueOf(PreCourse.getStart()),
                             String.valueOf(PreCourse.getEnd())});
+        }
+
+        if(requestCode == 4 && resultCode == Activity.RESULT_OK && data != null){
+            fromJson(data.getStringExtra("json"),data.getBooleanExtra("isSave",false));
+
         }
 
     }

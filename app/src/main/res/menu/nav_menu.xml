@@ -17,7 +17,7 @@
         <menu>
             <item
                 android:id="@+id/nm_share"
-                android:title="Share"/>
+                android:title="注销"/>
             <item
                 android:id="@+id/nm_send"
                 android:title="退出登录"/>
