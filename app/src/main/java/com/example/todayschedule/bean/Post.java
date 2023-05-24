@@ -9,6 +9,7 @@ public class Post extends BmobObject {
     private String author;
     private String authorid;
     private String authorinfo;
+    private String imgID;
 
     private int likes = 0;
     private int comments = 0;
@@ -76,6 +77,14 @@ public class Post extends BmobObject {
         this.author = author;
         this.authorinfo = authorinfo;
         this.authorid = authorid;
+    }
+
+    public String getImgID() {
+        return imgID;
+    }
+
+    public void setImgID(String imgID) {
+        this.imgID = imgID;
     }
 
     public Post(String id){

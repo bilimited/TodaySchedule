@@ -12,13 +12,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class ShowJsonActivity extends AppCompatActivity {
-
+    String copyStr;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_json);
 
-        String copyStr = getIntent().getStringExtra("json");
+        copyStr = getIntent().getStringExtra("json");
 
         EditText editText = findViewById(R.id.showjson);
         editText.setText(copyStr);

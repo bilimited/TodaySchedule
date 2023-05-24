@@ -19,14 +19,16 @@ import com.example.todayschedule.NoticeActivity;
 import com.example.todayschedule.R;
 import com.example.todayschedule.ScheduleActivity;
 import com.example.todayschedule.TodaySchedule;
+import com.example.todayschedule.bean.Image;
 import com.example.todayschedule.bean.Notice;
-import com.example.todayschedule.bean.Post;
+import com.example.todayschedule.tool.Base64Coder;
 
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.SaveListener;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -102,11 +104,6 @@ public class MainFragment extends Fragment {
     private void loadNotice(){
         container.removeAllViews();
 
-        addNotice(new Notice("这是一条Notice","内容","作者","作者id"));
-        addNotice(new Notice("这是一条Notice","内容","作者","作者id"));
-        addNotice(new Notice("这是一条Notice","内容","作者","作者id"));
-        addNotice(new Notice("这是一条Notice","内容","作者","作者id"));
-
         BmobQuery<Notice> bmobQuery = new BmobQuery<>();
 
         bmobQuery.findObjects(new FindListener<Notice>() {
@@ -138,8 +135,7 @@ public class MainFragment extends Fragment {
         ImageView imageView = v.findViewById(R.id.notice_img);
 
         title.setText(notice.getTitle());
-        imageView.setImageResource(notice.getImg());
-
+        Base64Coder.LoadImage(getActivity(),notice.getImgID(),imageView);
         container.addView(v);
     }
 

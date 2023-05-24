@@ -58,4 +58,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <ImageView
+        android:id="@+id/select_img"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/submit"
+        app:layout_constraintStart_toStartOf="@+id/submit"
+        app:srcCompat="@drawable/add" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

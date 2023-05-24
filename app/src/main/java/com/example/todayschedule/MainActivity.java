@@ -19,11 +19,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.todayschedule.bean.Image;
 import com.example.todayschedule.fragments.ForumFragment;
 import com.example.todayschedule.fragments.MainFragment;
 import com.example.todayschedule.fragments.PersonalCenterFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.SaveListener;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
+
     }
 
     @Override
@@ -93,7 +98,8 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.nm_item1:{
-                        Toast.makeText(MainActivity.this, "在做了在做了", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(MainActivity.this,SelectPicActivity.class);
+                        startActivity(intent);
                     }
                     case R.id.nm_item2:{
                         Toast.makeText(MainActivity.this, "在做了在做了", Toast.LENGTH_SHORT).show();

@@ -28,6 +28,8 @@ public class TodaySchedule extends Application {
     public static String UserID = "";
     public static boolean IsAdmin = false;
 
+    public static final int REQUEST_SELECT_PIC = 2;
+
     /**
      * 检查用户是否登录。
      * @return
