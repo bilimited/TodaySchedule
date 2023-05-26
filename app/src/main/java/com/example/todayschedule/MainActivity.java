@@ -39,7 +39,8 @@ public class MainActivity extends AppCompatActivity {
     TextView nav_title;
     TextView nav_subtitle;
 
-
+    //用来记录现在的Fragment。
+    private static int nowFragment = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,7 +148,10 @@ public class MainActivity extends AppCompatActivity {
         mFragments[1] = new ForumFragment();
         mFragments[2] = new PersonalCenterFragment();
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.main_container,mFragments[0]).commit();
+        if(nowFragment>2||nowFragment<0){
+            nowFragment=0;
+        }
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_container,mFragments[nowFragment]).commit();
     }
 
     //底部菜单选中事件
@@ -156,12 +160,15 @@ public class MainActivity extends AppCompatActivity {
         switch (id){
             case R.id.bnm_item1:
                 fragment = mFragments[0];
+                nowFragment = 0;
                 break;
             case R.id.bnm_item2:
                 fragment = mFragments[1];
+                nowFragment = 1;
                 break;
             case R.id.bnm_item3:
                 fragment = mFragments[2];
+                nowFragment = 2;
                 break;
         }
         if(fragment!=null) {

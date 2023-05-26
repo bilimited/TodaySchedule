@@ -84,10 +84,20 @@ public class ScheduleActivity extends AppCompatActivity {
         navigationView = findViewById(R.id.nav_view);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);//添加默认的返回图标
-        getSupportActionBar().setHomeButtonEnabled(true);
 
+        /**
+         * 添加返回图标部分
+         */
+        //setSupportActionBar(toolbar);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);//添加默认的返回图标
+        //getSupportActionBar().setHomeButtonEnabled(true);
+
+        /**
+         * 添加三道杠图标部分
+         */
+        ActionBarDrawerToggle mActionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,R.string.app_name,R.string.app_name);
+        drawerLayout.addDrawerListener(mActionBarDrawerToggle);
+        mActionBarDrawerToggle.syncState();
 
         LinearLayout nav_header = (LinearLayout) navigationView.getHeaderView(0);
         nav_title = (TextView) nav_header.getChildAt(0);
@@ -276,6 +286,7 @@ public class ScheduleActivity extends AppCompatActivity {
         if(TodaySchedule.isLogged()){
             ArrayList<Course> coursesList = new ArrayList<>(); //课程列表
             BmobQuery<Course> bmobQuery = new BmobQuery<>();
+            bmobQuery.addWhereEqualTo("userid",TodaySchedule.UserID);
             bmobQuery.findObjects(new FindListener<Course>() {
                 @Override
                 public void done(List<Course> list, BmobException e) {

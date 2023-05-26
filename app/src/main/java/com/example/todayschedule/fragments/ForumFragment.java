@@ -18,6 +18,7 @@ import com.example.todayschedule.PostActivity;
 import com.example.todayschedule.R;
 import com.example.todayschedule.bean.Course;
 import com.example.todayschedule.bean.Post;
+import com.example.todayschedule.tool.Base64Coder;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
@@ -31,18 +32,13 @@ import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link ForumFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * TODO: Post显示不了标题。
  */
 public class ForumFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -50,15 +46,6 @@ public class ForumFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ForumFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static ForumFragment newInstance(String param1, String param2) {
         ForumFragment fragment = new ForumFragment();
         Bundle args = new Bundle();
@@ -113,8 +100,6 @@ public class ForumFragment extends Fragment {
 
     public void loadPost(){
 
-
-
         ArrayList<Post> postList = new ArrayList<>(); //课程列表
         BmobQuery<Post> bmobQuery = new BmobQuery<>();
 
@@ -141,6 +126,7 @@ public class ForumFragment extends Fragment {
         TextView likes = v.findViewById(R.id.like_number);
         TextView comments = v.findViewById(R.id.comment_number);
         TextView date = v.findViewById(R.id.date);
+        ImageView img = v.findViewById(R.id.image);
         ImageView like = v.findViewById(R.id.like);
 
         /*
@@ -157,6 +143,10 @@ public class ForumFragment extends Fragment {
         likes.setText(String.valueOf(post.getLikes()));
         comments.setText(String.valueOf(post.getComments()));
         date.setText(post.getCreatedAt());
+
+        if(post.getImgID()!=null&&!post.getImgID().equals("")){
+            Base64Coder.LoadImage(getActivity(),post.getImgID(),img);
+        }
 
         v.setOnClickListener(new View.OnClickListener() {
             @Override

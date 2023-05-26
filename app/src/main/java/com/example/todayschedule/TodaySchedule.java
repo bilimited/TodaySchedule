@@ -69,12 +69,10 @@ public class TodaySchedule extends Application {
         //Toast.makeText(this, "app初始化", Toast.LENGTH_SHORT).show();
         //Bmob.resetDomain("https://new.bmobapp.com/");
 
-
         Bmob.initialize(this, "6ad22596f1f07c0bee6a917bd1b86cce");
 
-
         /**
-         * 自动登录代码，目前没法用
+         * TODO: 自动登录是摆设
         BmobQuery<User_Table> bmobQuery = new BmobQuery<>();
         bmobQuery.findObjects(new FindListener<User_Table>() {
             @Override

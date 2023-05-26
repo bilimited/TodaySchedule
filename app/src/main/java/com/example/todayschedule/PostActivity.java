@@ -17,8 +17,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.todayschedule.bean.Comment;
+import com.example.todayschedule.bean.Image;
 import com.example.todayschedule.bean.Post;
 import com.example.todayschedule.fragments.EditCommentFragment;
+import com.example.todayschedule.tool.Base64Coder;
 
 import java.util.List;
 
@@ -50,7 +52,7 @@ public class PostActivity extends AppCompatActivity {
         TextView date = findViewById(R.id.date);
         TextView delete = findViewById(R.id.delete_post);
         TextView comments = findViewById(R.id.comment_number);
-
+        ImageView img = findViewById(R.id.image);
 
         post = (Post) getIntent().getSerializableExtra("post");
 
@@ -61,6 +63,9 @@ public class PostActivity extends AppCompatActivity {
         date.setText(post.getCreatedAt());
         comments.setText(String.valueOf(post.getComments()));
 
+        if(post.getImgID()!=null&&!post.getImgID().equals("")){
+            Base64Coder.LoadImage(this,post.getImgID(),img);
+        }
         if(post.getAuthorid().equals(TodaySchedule.UserID)||TodaySchedule.isAdmin()){
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override

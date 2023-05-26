@@ -55,11 +55,17 @@ public class Base64Coder {
 
     public static String getBase64FromFile(Context context, Uri fileUri) {
         String base64 = "";
+        if(fileUri==null||fileUri.equals("")){
+            return null;
+        }
         try {
 
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
             Bitmap bitmap = BitmapFactory.decodeStream(context.getContentResolver().openInputStream(fileUri));
+            if(bitmap==null){
+                return null;
+            }
             Log.d("压缩测试","原图大小:"+bitmap.getAllocationByteCount());
 
             for(int i = 0;i<10&&bitmap.getAllocationByteCount()>4000000;i++){

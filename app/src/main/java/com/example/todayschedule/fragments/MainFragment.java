@@ -139,10 +139,13 @@ public class MainFragment extends Fragment {
         container.addView(v);
     }
 
+    /**
+     * 由于多线程问题，这个也是摆设
+     */
     private void reflesh(){
-
         TextView addButton = theview.findViewById(R.id.addNew);
         if(TodaySchedule.isAdmin()){
+            addButton.setText("添加");
             addButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -158,4 +161,8 @@ public class MainFragment extends Fragment {
         loadNotice();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
 }

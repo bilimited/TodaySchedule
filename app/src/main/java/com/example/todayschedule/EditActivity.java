@@ -27,14 +27,24 @@ import cn.bmob.v3.listener.SaveListener;
 
 public class EditActivity extends AppCompatActivity {
 
-    private boolean isPost = false;
-    private boolean isNotice = false;
     private EditText edit_title,edit_content;
 
+    /**
+     * isPost,isNotice:是Post还是Notice
+     * 离谱代码，但我懒得改了
+     */
+    private boolean isPost = false;
+    private boolean isNotice = false;
+
+    /**
+     * TODO:草稿标题和内容
+     */
     private static String draft_title;
     private static String draft_content;
 
+    //用来预览的图片
     ImageView sel_img;
+    //选择图片的Uri
     Uri sel_uri;
 
     @Override
@@ -71,6 +81,9 @@ public class EditActivity extends AppCompatActivity {
             }
         });
 
+        /**
+         * 点击提交事件。
+         */
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -80,7 +93,10 @@ public class EditActivity extends AppCompatActivity {
                 }
 
                 String base64 = Base64Coder.getBase64FromFile(EditActivity.this,sel_uri);
-                Toast.makeText(EditActivity.this, "Base64 length:"+base64.length(), Toast.LENGTH_SHORT).show();
+                if(base64!=null){
+                    Toast.makeText(EditActivity.this, "Base64 length:"+base64.length(), Toast.LENGTH_SHORT).show();
+                }
+
 
                 if(sel_uri!=null){
                     Image image = new Image();
