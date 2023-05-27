@@ -4,94 +4,102 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary">
+    android:background="@color/white">
 
-    <EditText
-        android:id="@+id/AccountText"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="175dp"
-        android:ems="10"
-        android:hint="手机号码"
-        android:drawablePadding="10dp"
-        android:inputType="textPersonName"
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+
+        android:layout_height="270dp"
+        android:scaleType="centerCrop"
+
+        android:src="@drawable/bg1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/PasswordText"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="44dp"
-        android:ems="10"
-        android:hint="密码"
-        android:drawablePadding="10dp"
-        android:inputType="textPassword"
-        app:layout_constraintStart_toStartOf="@+id/AccountText"
-        app:layout_constraintTop_toBottomOf="@+id/AccountText" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="-40dp"
+        android:background="@drawable/vie_b"
+        android:backgroundTint="@color/colorPrimary"
 
-    <Button
-        android:id="@+id/LoginButton"
-        android:layout_width="200dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="68dp"
-        android:background="@color/white"
-        android:text="登录"
-        android:textColor="@color/colorPrimary"
-        android:textSize="26dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/PasswordText" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView2">
 
-    <TextView
-        android:id="@+id/LoginTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="60dp"
-        android:text="Login"
-        android:textSize="40dp"
-        app:layout_constraintBottom_toTopOf="@+id/AccountText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        <EditText
+            android:id="@+id/AccountText"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="36dp"
+            android:ems="10"
+            android:hint="手机号码"
+            android:inputType="textPersonName"
+            android:paddingLeft="10dp"
 
-    <TextView
-        android:id="@+id/FindPasswordButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="忘记密码?"
-        android:textSize="18dp"
-        app:layout_constraintLeft_toLeftOf="@+id/PasswordText"
-        app:layout_constraintTop_toBottomOf="@+id/LoginButton"/>
 
-    <TextView
-        android:id="@+id/RegisterButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="注册"
-        android:textSize="18dp"
-        app:layout_constraintRight_toRightOf="@id/PasswordText"
-        app:layout_constraintTop_toBottomOf="@id/LoginButton"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/ShowButton"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="5dp"
-        app:layout_constraintRight_toRightOf="@+id/PasswordText"
-        app:layout_constraintBottom_toBottomOf="@+id/PasswordText"/>
+        <EditText
+            android:id="@+id/PasswordText"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:hint="密码"
+            android:inputType="textPassword"
+            android:paddingLeft="10dp"
 
-    <RadioButton
-        android:id="@+id/auto_login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="自动登录"
-        app:layout_constraintStart_toStartOf="@+id/PasswordText"
-        app:layout_constraintTop_toBottomOf="@+id/PasswordText" />
 
+            app:layout_constraintStart_toStartOf="@+id/AccountText"
+            app:layout_constraintTop_toBottomOf="@+id/AccountText" />
+
+        <Button
+            android:id="@+id/LoginButton"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/shape_btn_white"
+            android:text="登录"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20dp"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/PasswordText" />
+
+
+        <Button
+            android:id="@+id/RegisterButton"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:background="@drawable/shape_btn_white"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:text="注册"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toEndOf="@+id/PasswordText"
+            app:layout_constraintRight_toRightOf="@id/PasswordText"
+            app:layout_constraintStart_toStartOf="@+id/PasswordText"
+            app:layout_constraintTop_toBottomOf="@id/LoginButton" />
+
+        <RadioButton
+            android:id="@+id/auto_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="自动登录"
+            app:layout_constraintStart_toStartOf="@+id/PasswordText"
+            app:layout_constraintTop_toBottomOf="@+id/PasswordText" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

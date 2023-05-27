@@ -1,18 +1,25 @@
 package com.example.todayschedule;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.todayschedule.bean.User_Table;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 import java.util.prefs.Preferences;
 
 import cn.bmob.v3.Bmob;
@@ -20,6 +27,9 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.QueryListener;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Response;
 
 
 public class TodaySchedule extends Application {
@@ -29,6 +39,8 @@ public class TodaySchedule extends Application {
     public static boolean IsAdmin = false;
 
     public static final int REQUEST_SELECT_PIC = 2;
+
+    public static OkHttpClient okHttpClient;
 
     /**
      * 检查用户是否登录。
@@ -56,6 +68,11 @@ public class TodaySchedule extends Application {
     public static void logout(){
         LoggedAccount = "local";
         UserID = "";
+    }
+
+    public static void add_nothingHere(Context context, LinearLayout container){
+        final View v = LayoutInflater.from(context).inflate(R.layout.card_nothing_here, null);
+        container.addView(v);
     }
 
     @Deprecated

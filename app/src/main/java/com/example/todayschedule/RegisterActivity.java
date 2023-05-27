@@ -11,6 +11,7 @@ import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +29,7 @@ import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 
 public class RegisterActivity extends AppCompatActivity {
-    TextView RegisterTitle; //注册标题
+    ImageView RegisterTitle; //注册标题
     EditText AccountText;   //账号
     EditText PasswordText;  //密码
     EditText SMS_Code;      //验证码
@@ -144,22 +145,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        ShowButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (ShowPassword == false) {
-                    //密码不可见-->>密码可见
-                    PasswordText.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                    PasswordText.setSelection(PasswordText.getText().toString().length());
-                    ShowPassword = true;
-                }else {
-                    //密码可见-->>密码不可见
-                    PasswordText.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                    PasswordText.setSelection(PasswordText.getText().toString().length());
-                    ShowPassword = false;
-                }
-            }
-        });
+
 
         Cheat.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -210,16 +196,6 @@ public class RegisterActivity extends AppCompatActivity {
         RegisterButton = findViewById(R.id.RegisterButton);
         GetCode = findViewById(R.id.GetCode);
 
-        //将密码文本初始设置为不可见状态
-        ShowButton = findViewById(R.id.ShowButton);
-        ShowPassword = false;
-
-        //设置标题字体样式(方舒整体 常规)
-        //RegisterTitle.setTypeface(Typeface.createFromAsset(getAssets(),"font/FZSTK.TTF"));
-        //设置按钮文本字体样式(方舒整体 常规)
-        //RegisterButton.setTypeface(Typeface.createFromAsset(getAssets(),"font/FZSTK.TTF"));
-        //设置背景图片透明度(0~255，值越小越透明)
-        RegisterButton.getBackground().setAlpha(100);
     }
 
     /**

@@ -40,7 +40,8 @@
             android:layout_marginLeft="15dp"
             android:layout_marginTop="250dp"
             android:layout_marginRight="15dp"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/button_bg"
+            android:backgroundTint="@color/colorPrimary"
             android:text="发布"
             android:textColor="@color/white" />
 

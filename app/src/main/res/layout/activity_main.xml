@@ -49,8 +49,9 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView
+        android:theme="@style/AppThemeLight"
         android:id="@+id/main_nav_view"
-        android:layout_width="330dp"
+        android:layout_width="300dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:menu="@menu/nav_menu"

@@ -10,13 +10,15 @@
         android:id="@+id/AccountText"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_marginTop="175dp"
+        android:layout_marginTop="184dp"
+        android:drawablePadding="10dp"
         android:ems="10"
         android:hint="手机号码"
-        android:textSize="16dp"
-        android:drawablePadding="10dp"
         android:inputType="textPersonName"
+
+        android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -28,6 +30,7 @@
         android:ems="10"
         android:hint="密码由6~16位组成(最少3位字母)"
         android:textSize="16dp"
+
         android:drawablePadding="10dp"
         android:inputType="textPassword"
         app:layout_constraintStart_toStartOf="@+id/AccountText"
@@ -36,23 +39,24 @@
     <Button
         android:id="@+id/RegisterButton"
         android:layout_width="200dp"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
-        android:background="@color/white"
+        android:background="@drawable/shape_btn_white"
         android:text="注册"
         android:textColor="@color/colorPrimary"
-        android:textSize="25dp"
-        app:layout_constraintTop_toBottomOf="@+id/PasswordText"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/PasswordText" />
 
-    <TextView
+    <ImageView
         android:id="@+id/RegisterTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="60dp"
-        android:text="Register"
-        android:textSize="40dp"
+        android:layout_marginBottom="-10dp"
+        android:src="@drawable/todaysch"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
         app:layout_constraintBottom_toTopOf="@+id/AccountText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -64,8 +68,10 @@
         android:layout_marginTop="20dp"
         android:text="已有账号？点击登陆"
         android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="@+id/PasswordText"
         app:layout_constraintRight_toRightOf="@id/PasswordText"
-        app:layout_constraintTop_toBottomOf="@id/RegisterButton"/>
+        app:layout_constraintStart_toStartOf="@+id/PasswordText"
+        app:layout_constraintTop_toBottomOf="@id/RegisterButton" />
 
     <EditText
         android:id="@+id/SMS_Code"
@@ -76,7 +82,7 @@
         android:hint="验证码"
         android:textSize="16dp"
         android:inputType="textPersonName"
-        android:paddingLeft="10dp"
+
         app:layout_constraintLeft_toLeftOf="@id/PasswordText"
         app:layout_constraintTop_toBottomOf="@id/PasswordText" />
 
@@ -91,13 +97,7 @@
         app:layout_constraintTop_toBottomOf="@id/PasswordText"
         app:layout_constraintRight_toRightOf="@id/PasswordText"/>
 
-    <TextView
-        android:id="@+id/ShowButton"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="5dp"
-        app:layout_constraintBottom_toBottomOf="@+id/PasswordText"
-        app:layout_constraintRight_toRightOf="@+id/PasswordText"/>
+
 
     <Button
         android:id="@+id/ForceRegister"

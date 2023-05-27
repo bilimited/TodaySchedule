@@ -8,8 +8,8 @@
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/portrait"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_marginLeft="35dp"
         android:layout_marginTop="15dp"
         app:shapeAppearance="@style/CircleStyle"
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:text="用户名"
         android:textColor="@color/black"
-        android:textSize="19dp"
+        android:textSize="15dp"
         android:layout_marginLeft="9dp"
         app:layout_constraintStart_toEndOf="@+id/portrait"
         app:layout_constraintTop_toTopOf="@+id/portrait" />
@@ -35,7 +35,7 @@
         android:layout_marginTop="10dp"
         android:text="这是内容这是内容这是内容这是内容这是内容这是内容这是内容"
         android:textColor="@color/black"
-        android:textSize="20dp"
+        android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/portrait"
@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:text="2000-00-00"
         android:textColor="@color/text_gray"
-        android:textSize="12dp"
+        android:textSize="10dp"
         app:layout_constraintStart_toStartOf="@+id/portrait"
         app:layout_constraintTop_toBottomOf="@+id/post_content" />
 

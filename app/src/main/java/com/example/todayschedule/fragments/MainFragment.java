@@ -122,6 +122,9 @@ public class MainFragment extends Fragment {
     }
 
     private void addNotice(Notice notice){
+        if(notice==null){
+            return;
+        }
         final View v = LayoutInflater.from(getContext()).inflate(R.layout.card_notice, null);
         v.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,10 +135,16 @@ public class MainFragment extends Fragment {
             }
         });
         TextView title = v.findViewById(R.id.title);
+        TextView content = v.findViewById(R.id.content);
         ImageView imageView = v.findViewById(R.id.notice_img);
-
         title.setText(notice.getTitle());
-        Base64Coder.LoadImage(getActivity(),notice.getImgID(),imageView);
+        content.setText(notice.getContent());
+        if(notice.getImgID()!=null&&!notice.getImgID().equals("")){
+            Base64Coder.LoadImage(getActivity(),notice.getImgID(),imageView);
+        }else {
+            imageView.setMaxWidth(0);
+        }
+
         container.addView(v);
     }
 

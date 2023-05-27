@@ -14,9 +14,9 @@
     <application
         android:name=".TodaySchedule"
         android:allowBackup="true"
-        android:icon="@mipmap/b"
+        android:icon="@drawable/todaysch"
         android:label="今日课表~☺"
-        android:roundIcon="@mipmap/b"
+        android:roundIcon="@drawable/todaysch"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
@@ -93,14 +93,16 @@
         </activity>
         <activity
             android:name=".BaseActivity"
-            android:exported="false">
+            android:exported="false"
+            android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:exported="false">
+            android:exported="false"
+            android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -124,6 +126,7 @@
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".RegisterActivity"
+            android:theme="@style/AppTheme"
             android:label="注册" />
     </application>
 

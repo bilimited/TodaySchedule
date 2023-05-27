@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.todayschedule.EditActivity;
 import com.example.todayschedule.PostActivity;
 import com.example.todayschedule.R;
+import com.example.todayschedule.TodaySchedule;
 import com.example.todayschedule.bean.Course;
 import com.example.todayschedule.bean.Post;
 import com.example.todayschedule.tool.Base64Coder;
@@ -110,15 +111,20 @@ public class ForumFragment extends Fragment {
                     for(int i =list.size()-1;i>=0;i--){
                         addPost(list.get(i));
                     }
+                    TodaySchedule.add_nothingHere(getContext(),container);
                 }else {
                     Toast.makeText(getContext(), "发生异常:"+e.getErrorCode(), Toast.LENGTH_SHORT).show();
                 }
 
             }
         });
+
     }
 
     public void addPost(Post post){
+        if(post==null){
+            return;
+        }
         final View v = LayoutInflater.from(getContext()).inflate(R.layout.card_post, null);
         TextView username = v.findViewById(R.id.post_username);
         TextView userinfo = v.findViewById(R.id.post_userinfo);

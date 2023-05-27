@@ -133,15 +133,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        //跳转到密码找回界面
-        FindPasswordButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Intent intent = new Intent();
-                //intent.setClass(LoginActivity.this, FindPassword.class);
-                //startActivity(intent);
-            }
-        });
 
         //跳转到注册界面
         RegisterButton.setOnClickListener(new View.OnClickListener() {
@@ -153,43 +144,20 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        //密码可见和不可见
-        ShowButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (ShowPassword == false) {
-                    PasswordText.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                    PasswordText.setSelection(PasswordText.getText().toString().length());
-                    ShowPassword = true;
-                }else {
-                    PasswordText.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                    PasswordText.setSelection(PasswordText.getText().toString().length());
-                    ShowPassword = false;
-                }
-            }
-        });
+
     }
 
     //View初始化
     public void init(){
         //Login标题(LoginTitle)、账号(AccountText)、密码(PasswordText)
-        LoginTitle = findViewById(R.id.LoginTitle);
         AccountText = findViewById(R.id.AccountText);
         PasswordText = findViewById(R.id.PasswordText);
 
         //登录按钮(Login)、跳到注册按钮(Register)、跳到密码找回按钮(FindPassword)
         LoginButton = findViewById(R.id.LoginButton);
         RegisterButton = findViewById(R.id.RegisterButton);
-        FindPasswordButton = findViewById(R.id.FindPasswordButton);
-        ShowButton = findViewById(R.id.ShowButton);
 
         autologin = findViewById(R.id.auto_login);
 
-        //密码初始状态为不可见（false不可见，true可见）
-        ShowPassword = false;
-        //设置Login标题字体样式(华文彩云)
-        //LoginTitle.setTypeface(Typeface.createFromAsset(getAssets(),"font/FZSTK.TTF"));
-        //设置背景图片透明度(0~255，值越小越透明)
-        LoginButton.getBackground().setAlpha(100);
     }
 }

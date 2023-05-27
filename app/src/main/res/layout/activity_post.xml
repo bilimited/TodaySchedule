@@ -30,8 +30,8 @@
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/portrait"
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="15dp"
                     android:src="@color/colorPrimary"
@@ -50,9 +50,9 @@
 
                 <ImageView
                     android:id="@+id/like"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginTop="10dp"
                     android:src="@drawable/like"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/portrait"
@@ -65,7 +65,7 @@
                     android:layout_marginLeft="9dp"
                     android:text="用户名"
                     android:textColor="@color/black"
-                    android:textSize="19dp"
+                    android:textSize="15dp"
                     app:layout_constraintStart_toEndOf="@+id/portrait"
                     app:layout_constraintTop_toTopOf="@+id/portrait" />
 
@@ -76,7 +76,7 @@
                     android:layout_marginRight="30dp"
                     android:text="删除"
                     android:textColor="@color/red"
-                    android:textSize="19dp"
+                    android:textSize="15dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/portrait" />
 
@@ -86,7 +86,7 @@
                     android:layout_height="wrap_content"
                     android:text="学院"
                     android:textColor="@color/text_gray"
-                    android:textSize="15dp"
+                    android:textSize="12dp"
                     app:layout_constraintStart_toStartOf="@+id/post_username"
                     app:layout_constraintTop_toBottomOf="@+id/post_username" />
 
@@ -94,10 +94,9 @@
                     android:id="@+id/post_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:text="这是内容这是内容这是内容这是内容这是内容这是内容这是内容"
                     android:textColor="@color/black"
-                    android:textSize="20dp"
+                    android:textSize="15dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/portrait"
@@ -109,7 +108,7 @@
                     android:layout_height="wrap_content"
                     android:text="赞数"
                     android:textColor="@color/black"
-                    android:textSize="19dp"
+                    android:textSize="15dp"
                     app:layout_constraintEnd_toEndOf="@+id/like"
                     app:layout_constraintStart_toStartOf="@+id/like"
                     app:layout_constraintTop_toBottomOf="@+id/like" />
@@ -118,11 +117,11 @@
                     android:id="@+id/date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginBottom="30dp"
                     android:text="2000-00-00"
                     android:textColor="@color/text_gray"
-                    android:textSize="12dp"
+                    android:textSize="10dp"
                     app:layout_constraintStart_toStartOf="@+id/portrait"
                     app:layout_constraintTop_toBottomOf="@+id/like_number" />
 
@@ -131,10 +130,10 @@
                     android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5dp"
                     android:text="评论"
                     android:textColor="@color/black"
-                    android:textSize="25dp"
+                    android:textSize="20dp"
                     app:layout_constraintStart_toStartOf="@+id/date"
                     app:layout_constraintTop_toBottomOf="@+id/date" />
 
@@ -143,10 +142,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5dp"
                     android:text="0"
                     android:textColor="@color/text_gray"
-                    android:textSize="25dp"
+                    android:textSize="20dp"
                     app:layout_constraintStart_toEndOf="@+id/textView2"
                     app:layout_constraintTop_toBottomOf="@+id/date" />
 
@@ -171,7 +170,8 @@
         android:layout_height="48dp"
         android:layout_marginBottom="100dp"
         android:layout_marginRight="60dp"
-        android:src="@color/colorPrimary"
+        android:src="@drawable/add"
+        app:tint="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

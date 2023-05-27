@@ -99,8 +99,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.nm_item1:{
-                        Intent intent = new Intent(MainActivity.this,SelectPicActivity.class);
-                        startActivity(intent);
+                        Toast.makeText(MainActivity.this, "在做了在做了", Toast.LENGTH_SHORT).show();
                     }
                     case R.id.nm_item2:{
                         Toast.makeText(MainActivity.this, "在做了在做了", Toast.LENGTH_SHORT).show();
