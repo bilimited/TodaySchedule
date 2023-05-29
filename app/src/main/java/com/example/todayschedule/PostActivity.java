@@ -20,8 +20,10 @@ import android.widget.Toast;
 import com.example.todayschedule.bean.Comment;
 import com.example.todayschedule.bean.Image;
 import com.example.todayschedule.bean.Post;
+import com.example.todayschedule.bean.User_Info;
 import com.example.todayschedule.fragments.EditCommentFragment;
 import com.example.todayschedule.tool.Base64Coder;
+import com.google.android.material.imageview.ShapeableImageView;
 
 import java.io.IOException;
 import java.util.List;
@@ -157,6 +159,20 @@ public class PostActivity extends AppCompatActivity {
         });
 
         container = findViewById(R.id.comment_container);
+
+        ShapeableImageView portrait = findViewById(R.id.portrait);
+        //读取作者相关信息
+        User_Info.findUserInfo(post.getAuthorid(), new FindListener<User_Info>() {
+            @Override
+            public void done(List<User_Info> list, BmobException e) {
+                if(e==null&&!list.isEmpty()){
+                    User_Info user_info = list.get(0);
+                    Base64Coder.LoadProtrait(PostActivity.this,user_info.getPortraitID(),portrait);
+                    userinfo.setText(user_info.getUniversity());
+                }
+            }
+        });
+
         load_comment();
 
         setSupportActionBar(toolbar);
@@ -188,10 +204,21 @@ public class PostActivity extends AppCompatActivity {
         TextView username = v.findViewById(R.id.post_username);
         TextView content = v.findViewById(R.id.post_content);
         TextView date = v.findViewById(R.id.date);
-
         username.setText(comment.getAuthor());
         content.setText(comment.getContent());
         date.setText(comment.getCreatedAt());
+
+        ShapeableImageView portrait = v.findViewById(R.id.portrait);
+        //读取作者相关信息
+        User_Info.findUserInfo(comment.getAuthor_id(), new FindListener<User_Info>() {
+            @Override
+            public void done(List<User_Info> list, BmobException e) {
+                if(e==null&&!list.isEmpty()){
+                    User_Info user_info = list.get(0);
+                    Base64Coder.LoadProtrait(PostActivity.this,user_info.getPortraitID(),portrait);
+                }
+            }
+        });
 
         container.addView(v);
     }

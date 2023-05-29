@@ -19,9 +19,11 @@ import com.example.todayschedule.R;
 import com.example.todayschedule.TodaySchedule;
 import com.example.todayschedule.bean.Course;
 import com.example.todayschedule.bean.Post;
+import com.example.todayschedule.bean.User_Info;
 import com.example.todayschedule.tool.Base64Coder;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.imageview.ShapeableImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -135,6 +137,7 @@ public class ForumFragment extends Fragment {
         ImageView img = v.findViewById(R.id.image);
         ImageView like = v.findViewById(R.id.like);
 
+
         /*
         限制预览的内容长度
          */
@@ -171,6 +174,19 @@ public class ForumFragment extends Fragment {
             }
         });
         container.addView(v);
+
+        ShapeableImageView portrait = v.findViewById(R.id.portrait);
+        //读取作者相关信息
+        User_Info.findUserInfo(post.getAuthorid(), new FindListener<User_Info>() {
+            @Override
+            public void done(List<User_Info> list, BmobException e) {
+                if(e==null&&!list.isEmpty()){
+                    User_Info user_info = list.get(0);
+                    Base64Coder.LoadProtrait(getActivity(),user_info.getPortraitID(),portrait);
+                    userinfo.setText(user_info.getUniversity());
+                }
+            }
+        });
     }
 
     public void reflesh(){

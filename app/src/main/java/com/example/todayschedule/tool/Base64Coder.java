@@ -19,6 +19,7 @@ import androidx.annotation.Nullable;
 import com.bumptech.glide.Glide;
 import com.example.todayschedule.R;
 import com.example.todayschedule.bean.Image;
+import com.example.todayschedule.bean.Portrait;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -41,6 +42,11 @@ import cn.bmob.v3.listener.QueryListener;
  */
 public class Base64Coder {
 
+    public static final int COMPRESS_IMAGE = 0;
+    public static final int COMPRESS_PROTRAIT = 1;
+
+    private static final int protrait_size = 128;
+
     private static Bitmap resize(Bitmap bitmap,float scale){
         int src_w = bitmap.getWidth();
         int src_h = bitmap.getHeight();
@@ -53,7 +59,19 @@ public class Base64Coder {
         return dstbmp;
     }
 
-    public static String getBase64FromFile(Context context, Uri fileUri) {
+    private static Bitmap resize_to_protrait(Bitmap bitmap){
+        int src_w = bitmap.getWidth();
+        int src_h = bitmap.getHeight();
+        float scale_w = (protrait_size/src_w);
+        float scale_h = (protrait_size/src_h);
+        Matrix matrix = new Matrix();
+        matrix.postScale(scale_w, scale_h);
+        Bitmap dstbmp = Bitmap.createBitmap(bitmap, 0, 0, src_w, src_h, matrix,
+                true);
+        return dstbmp;
+    }
+
+    public static String getBase64FromFile(Context context, Uri fileUri, int compressMode) {
         String base64 = "";
         if(fileUri==null||fileUri.equals("")){
             return null;
@@ -68,10 +86,14 @@ public class Base64Coder {
             }
             Log.d("压缩测试","原图大小:"+bitmap.getAllocationByteCount());
 
-            for(int i = 0;i<10&&bitmap.getAllocationByteCount()>4000000;i++){
-                bitmap = resize(bitmap,0.8f);
-                Log.d("压缩测试","裁剪后大小:"+bitmap.getAllocationByteCount());
+            if(compressMode==COMPRESS_IMAGE){
+                for(int i = 0;i<10&&bitmap.getAllocationByteCount()>4000000;i++){
+                    bitmap = resize(bitmap,0.8f);
+                }
+            }else if(compressMode==COMPRESS_PROTRAIT){
+                bitmap = resize_to_protrait(bitmap);
             }
+
             bitmap.compress(Bitmap.CompressFormat.JPEG,10,baos);
 
             baos.flush();
@@ -83,6 +105,10 @@ public class Base64Coder {
             e.printStackTrace();
         }
         return "data:image/jpeg;base64,"+base64;
+    }
+
+    public static String getBase64FromFile(Context context, Uri fileUri){
+        return getBase64FromFile(context,fileUri,0);
     }
 
     private static boolean isBase64Img(String imgurl){
@@ -147,6 +173,21 @@ public class Base64Coder {
                     base64ToImg(context,object.getBase64(), R.drawable.ic_launcher_background,imageView);
                 }else{
                     Log.d("test","找不到图片资源!");
+                }
+            }
+        });
+
+    }
+
+    public static void LoadProtrait(Activity context,String proID,ImageView imageView){
+        BmobQuery<Portrait> bmobQuery = new BmobQuery<Portrait>();
+        bmobQuery.getObject(proID, new QueryListener<Portrait>() {
+            @Override
+            public void done(Portrait object, BmobException e) {
+                if(e==null){
+                    base64ToImg(context,object.getBase64(), R.drawable.ic_launcher_background,imageView);
+                }else{
+                    Log.d("test","找不到头像资源!");
                 }
             }
         });

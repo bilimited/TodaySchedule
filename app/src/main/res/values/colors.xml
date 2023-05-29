@@ -20,6 +20,7 @@
 
     <color name="text_gray">#AEAEAE</color>
     <color name="light_gray">#D3D3D3</color>
+    <color name="very_light_gray">#F3F3F3</color>
 
     <color name="nav_menu_icon">#5E5E5E</color>
     <color name="nav_menu_text">#474747</color>

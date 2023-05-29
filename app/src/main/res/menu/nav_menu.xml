@@ -2,25 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group>
         <item
-            android:id="@+id/nm_item1"
-            android:title="还没想好" />
+            android:id="@+id/user_setting"
+            android:icon="@drawable/user_circle"
+            android:title="个人信息" />
         <item
-            android:id="@+id/nm_item2"
-            android:title="界面2" />
+            android:id="@+id/use_license"
+            android:icon="@drawable/help_circle"
+            android:title="使用条款" />
         <item
             android:id="@+id/nm_quit"
-            android:title="也没想好" />
+            android:icon="@drawable/accessible_icon"
+            android:title="退出登录" />
 
     </group>
 
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/nm_share"
-                android:title="注销"/>
-            <item
-                android:id="@+id/nm_send"
-                android:title="退出登录"/>
-        </menu>
-    </item>
 </menu>

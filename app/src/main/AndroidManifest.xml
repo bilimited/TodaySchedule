@@ -21,8 +21,27 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".AgreementActivity"
+            android:exported="false"
+            android:label="食用条款"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".SettingActivity"
+            android:exported="false"
+            android:label="设置"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".SelectPicActivity"
-            android:exported="false">
+            android:exported="false"
+            android:label="如果你看到这一行字，那一定是出bug了">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -30,6 +49,7 @@
         <activity
             android:name=".ShowJsonActivity"
             android:exported="false"
+            android:label="Json导出结果"
             android:theme="@style/Theme.AppCompat.Light.Dialog">
             <meta-data
                 android:name="android.app.lib_name"
@@ -38,6 +58,7 @@
         <activity
             android:name=".InputJsonActivity"
             android:exported="false"
+            android:label="输入json"
             android:theme="@style/Theme.AppCompat.Light.Dialog">
             <meta-data
                 android:name="android.app.lib_name"
@@ -46,6 +67,7 @@
         <activity
             android:name=".NoticeActivity"
             android:exported="false"
+            android:label="公告内容"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.app.lib_name"
@@ -54,6 +76,7 @@
         <activity
             android:name=".PostActivity"
             android:exported="false"
+            android:label="讨论内容"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.app.lib_name"
@@ -62,6 +85,7 @@
         <activity
             android:name=".EditActivity"
             android:exported="false"
+            android:label="发起讨论"
             android:parentActivityName=".MainActivity">
             >
             <meta-data
@@ -85,6 +109,7 @@
         <activity
             android:name=".ScheduleActivity"
             android:exported="false"
+            android:label="课程表"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -102,6 +127,7 @@
         <activity
             android:name=".LoginActivity"
             android:exported="false"
+            android:label="登录"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.app.lib_name"
@@ -126,8 +152,8 @@
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".RegisterActivity"
-            android:theme="@style/AppTheme"
-            android:label="注册" />
+            android:label="注册"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

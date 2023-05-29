@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.todayschedule.bean.User_Info;
 import com.example.todayschedule.bean.User_Table;
 
 import java.io.IOException;

@@ -8,13 +8,7 @@ public class User_Table extends BmobObject {
     //密码
     private String Password;
 
-    private int flag;
-
     private boolean admin;
-
-    private String info;
-
-    private String nickname;
 
     public String getAccount() {
         return Account;
@@ -30,30 +24,6 @@ public class User_Table extends BmobObject {
 
     public void setPassword(String password) {
         Password = password;
-    }
-
-    public void setFlag(int flag) {
-        this.flag = flag;
-    }
-
-    public int getFlag() {
-        return flag;
-    }
-
-    public String getInfo() {
-        return info;
-    }
-
-    public void setInfo(String info) {
-        this.info = info;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
     }
 
     public void setAdmin(boolean admin) {

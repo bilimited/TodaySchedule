@@ -98,14 +98,46 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
-                    case R.id.nm_item1:{
-                        Toast.makeText(MainActivity.this, "在做了在做了", Toast.LENGTH_SHORT).show();
+                    case R.id.user_setting:{
+                        if(TodaySchedule.isLogged()){
+                            Intent intent = new Intent(MainActivity.this,SettingActivity.class);
+                            startActivity(intent);
+                        }else {
+                            Toast.makeText(MainActivity.this, "你好像...并没有登录", Toast.LENGTH_SHORT).show();
+                        }
+                        break;
                     }
-                    case R.id.nm_item2:{
-                        Toast.makeText(MainActivity.this, "在做了在做了", Toast.LENGTH_SHORT).show();
+                    case R.id.use_license:{
+                        Intent intent = new Intent(MainActivity.this,SettingActivity.class);
+                        startActivity(intent);
+                        break;
                     }
                     case R.id.nm_quit:{
-                        Toast.makeText(MainActivity.this, "在做了在做了", Toast.LENGTH_SHORT).show();
+                        if(TodaySchedule.isLogged()){
+                            AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
+                            builder.setMessage("确认退出?");
+                            builder.setPositiveButton("确认", new DialogInterface.OnClickListener(){
+                                @Override
+                                public void onClick(DialogInterface dialog, int arg1) {
+                                    TodaySchedule.logout();
+                                    //loadData();//重置数据
+                                    dialog.dismiss();
+                                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                                    startActivity(intent);
+                                }
+
+                            });
+                            builder.setNegativeButton("取消", new DialogInterface.OnClickListener(){
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                            builder.create().show();
+                        }else {
+                            Toast.makeText(MainActivity.this, "你好像...并没有登录", Toast.LENGTH_SHORT).show();
+                        }
+                        break;
                     }
                 }
                 return false;
