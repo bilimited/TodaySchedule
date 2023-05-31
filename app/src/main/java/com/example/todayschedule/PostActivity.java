@@ -169,6 +169,7 @@ public class PostActivity extends AppCompatActivity {
                     User_Info user_info = list.get(0);
                     Base64Coder.LoadProtrait(PostActivity.this,user_info.getPortraitID(),portrait);
                     userinfo.setText(user_info.getUniversity());
+                    username.setText(user_info.getNickName());
                 }
             }
         });
@@ -201,10 +202,10 @@ public class PostActivity extends AppCompatActivity {
 
     private void add_comment(Comment comment){
         final View v = LayoutInflater.from(PostActivity.this).inflate(R.layout.card_comment, null);
-        TextView username = v.findViewById(R.id.post_username);
+        TextView cusername = v.findViewById(R.id.post_username);
         TextView content = v.findViewById(R.id.post_content);
         TextView date = v.findViewById(R.id.date);
-        username.setText(comment.getAuthor());
+        cusername.setText(comment.getAuthor());
         content.setText(comment.getContent());
         date.setText(comment.getCreatedAt());
 
@@ -215,6 +216,9 @@ public class PostActivity extends AppCompatActivity {
             public void done(List<User_Info> list, BmobException e) {
                 if(e==null&&!list.isEmpty()){
                     User_Info user_info = list.get(0);
+                    TextView userinfo = v.findViewById(R.id.post_userinfo);
+                    userinfo.setText(user_info.getUniversity());
+                    cusername.setText(user_info.getNickName());
                     Base64Coder.LoadProtrait(PostActivity.this,user_info.getPortraitID(),portrait);
                 }
             }

@@ -30,6 +30,7 @@
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/portrait"
+                    android:scaleType="centerCrop"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_marginLeft="15dp"

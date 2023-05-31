@@ -184,6 +184,7 @@ public class ForumFragment extends Fragment {
                     User_Info user_info = list.get(0);
                     Base64Coder.LoadProtrait(getActivity(),user_info.getPortraitID(),portrait);
                     userinfo.setText(user_info.getUniversity());
+                    username.setText(user_info.getNickName());
                 }
             }
         });
@@ -197,6 +198,7 @@ public class ForumFragment extends Fragment {
     public void like(Post post){
         Post temp = new Post(post.getObjectId());
         temp.setLikes(post.getLikes()+1);
+        temp.setComments(post.getComments());
         post.setLikes(post.getLikes()+1);
         temp.update(new UpdateListener() {
             @Override

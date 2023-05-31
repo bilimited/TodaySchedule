@@ -6,6 +6,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
@@ -89,9 +90,9 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout.addDrawerListener(mActionBarDrawerToggle);
         mActionBarDrawerToggle.syncState();
 
-        LinearLayout nav_header = (LinearLayout) navigationView.getHeaderView(0);
-        nav_title = (TextView) nav_header.getChildAt(0);
-        nav_subtitle = (TextView) nav_header.getChildAt(1);
+        ConstraintLayout nav_header = (ConstraintLayout) navigationView.getHeaderView(0);
+        nav_title = (TextView) nav_header.findViewById(R.id.nav_title);
+        nav_subtitle = (TextView) nav_header.findViewById(R.id.nav_subtitle);
 
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -108,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     }
                     case R.id.use_license:{
-                        Intent intent = new Intent(MainActivity.this,SettingActivity.class);
+                        Intent intent = new Intent(MainActivity.this,AgreementActivity.class);
                         startActivity(intent);
                         break;
                     }
@@ -181,9 +182,13 @@ public class MainActivity extends AppCompatActivity {
 
         if(nowFragment>2||nowFragment<0){
             nowFragment=0;
+        }else if(nowFragment==2){
+            getSupportFragmentManager().beginTransaction().replace(R.id.main_container,new PersonalCenterFragment()).commit();
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.main_container,mFragments[nowFragment]).commit();
     }
+
+
 
     //底部菜单选中事件
     private void onTabItemSelected(int id){

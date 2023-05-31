@@ -1,5 +1,6 @@
 package com.example.todayschedule;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
@@ -7,7 +8,9 @@ import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,6 +18,7 @@ import androidx.annotation.Nullable;
 
 import com.example.todayschedule.bean.User_Info;
 import com.example.todayschedule.bean.User_Table;
+import com.example.todayschedule.tool.Base64Coder;
 
 import java.io.IOException;
 import java.util.List;
@@ -74,6 +78,36 @@ public class TodaySchedule extends Application {
     public static void add_nothingHere(Context context, LinearLayout container){
         final View v = LayoutInflater.from(context).inflate(R.layout.card_nothing_here, null);
         container.addView(v);
+    }
+
+    /*
+    封装版的获取个人信息...
+     */
+    public static void setInfoView(Activity activity, String UserID, TextView userinfo, TextView username, ImageView portrait){
+        User_Info.findUserInfo(UserID, new FindListener<User_Info>() {
+            @Override
+            public void done(List<User_Info> list, BmobException e) {
+                if(e==null&&!list.isEmpty()){
+                    User_Info user_info = list.get(0);
+                    userinfo.setText(user_info.getUniversity());
+                    username.setText(user_info.getNickName());
+                    Base64Coder.LoadProtrait(activity,user_info.getPortraitID(),portrait);
+                }
+            }
+        });
+    }
+
+    public static void setInfoView(Activity activity, String UserID, TextView username, ImageView portrait){
+        User_Info.findUserInfo(UserID, new FindListener<User_Info>() {
+            @Override
+            public void done(List<User_Info> list, BmobException e) {
+                if(e==null&&!list.isEmpty()){
+                    User_Info user_info = list.get(0);
+                    username.setText(user_info.getNickName());
+                    Base64Coder.LoadProtrait(activity,user_info.getPortraitID(),portrait);
+                }
+            }
+        });
     }
 
     @Deprecated

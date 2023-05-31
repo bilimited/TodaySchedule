@@ -89,6 +89,7 @@ public class EditCommentFragment extends BottomSheetDialogFragment {
 
                             Post temp = new Post(post.getObjectId());
                             temp.setComments(post.getComments()+1);
+                            temp.setLikes(post.getLikes());
                             post.setComments(post.getComments()+1);
                             temp.update(new UpdateListener() {
                                 @Override

@@ -54,6 +54,9 @@ import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 
+/**
+ *  TODO:两个Spinner显示不正常
+ */
 
 public class SettingActivity extends AppCompatActivity {
     private ImageView avatarImageView;
@@ -68,7 +71,8 @@ public class SettingActivity extends AppCompatActivity {
     private Spinner mProvinceSpinner;
     private Spinner mUniversitySpinner;
     private List<String> mProvinceList;
-
+    private String selectedProvince;
+    private String selectedUniverse;
     private User_Info user_info;
 
     Uri sel_uri;
@@ -92,10 +96,11 @@ public class SettingActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
 
         mProvinceSpinner = findViewById(R.id.province_spinner);
+        /*
         ArrayAdapter<CharSequence> provinceAdapter = ArrayAdapter.createFromResource(this,
                 R.array.province_array, android.R.layout.simple_spinner_item);
         provinceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mProvinceSpinner.setAdapter(provinceAdapter);
+        mProvinceSpinner.setAdapter(provinceAdapter);*/
 
         // 添加代码以在ImageView上设置侦听器
         avatarImageView.setOnClickListener(new View.OnClickListener() {
@@ -126,28 +131,25 @@ public class SettingActivity extends AppCompatActivity {
         });
 
 
-        // 添加代码以在Button上设置侦听器
-        Button termsButton = findViewById(R.id.terms_button);
+        TextView termsButton = findViewById(R.id.terms_button);
         termsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // 打开条款和条件页面
-
                 Intent intent = new Intent(SettingActivity.this, AgreementActivity.class);
                 startActivity(intent);
-
-
             }
         });
 
         ArrayAdapter<String> mProvinceAdapter =
                 new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, mProvinceList);
         mProvinceSpinner.setAdapter(mProvinceAdapter);
+        mProvinceSpinner.setSelection(0);
         mProvinceSpinner.setOnItemSelectedListener(
                 new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        String selectedProvince = parent.getItemAtPosition(position).toString();
+                        selectedProvince = parent.getItemAtPosition(position).toString();
                         updateUniversitySpinner(selectedProvince);
                     }
 
@@ -206,7 +208,21 @@ public class SettingActivity extends AppCompatActivity {
         ArrayAdapter<String> universityAdapter =
                 new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, universities);
         mUniversitySpinner.setAdapter(universityAdapter);
+        mUniversitySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedUniverse = universities.get(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
+
+
+
     private List<String> getUniversitiesForProvince(String provinceName) {
         Map<String, List<String>> universitiesMap = new HashMap<>(); // 硬编码的哈希映射
         // 增加省份对应的大学列表
@@ -276,8 +292,8 @@ public class SettingActivity extends AppCompatActivity {
     private void save(String protraitID) {
         String nickname = nameEditText.getText().toString();
         String realname = realNameEditText.getText().toString();
-        String prov = mProvinceSpinner.getTransitionName();
-        String univ = mUniversitySpinner.getTransitionName();
+        String prov = selectedProvince;
+        String univ = selectedUniverse;
         String age = String.valueOf(ageSeekBar.getProgress());
         int gender = 0;
         if (((RadioButton) genderRadioGroup.getChildAt(1)).isChecked()) {
@@ -297,6 +313,9 @@ public class SettingActivity extends AppCompatActivity {
                 public void done(String s, BmobException e) {
                     if (e != null) {
                         Toast.makeText(SettingActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(SettingActivity.this, "修改成功！", Toast.LENGTH_SHORT).show();
+                        onBackPressed();
                     }
                 }
             });
@@ -309,6 +328,9 @@ public class SettingActivity extends AppCompatActivity {
                 public void done(BmobException e) {
                     if (e != null) {
                         Toast.makeText(SettingActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(SettingActivity.this, "修改成功！", Toast.LENGTH_SHORT).show();
+                        onBackPressed();
                     }
                 }
             });

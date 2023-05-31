@@ -2,14 +2,22 @@ package com.example.todayschedule.fragments;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
+import androidx.annotation.DrawableRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,7 +26,16 @@ import com.example.todayschedule.AboutActivity;
 import com.example.todayschedule.LoginActivity;
 import com.example.todayschedule.MainActivity;
 import com.example.todayschedule.R;
+import com.example.todayschedule.RegisterActivity;
+import com.example.todayschedule.SettingActivity;
 import com.example.todayschedule.TodaySchedule;
+import com.example.todayschedule.bean.User_Info;
+import com.example.todayschedule.tool.Base64Coder;
+
+import java.util.List;
+
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -74,36 +91,29 @@ public class PersonalCenterFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         theview = inflater.inflate(R.layout.fragment_personal_center, container, false);
-        init();
         return theview;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        init();
     }
 
     private void init(){
         TextView userid = theview.findViewById(R.id.userid);
         TextView info = theview.findViewById(R.id.desc);
-        if(TodaySchedule.isLogged()){
-            userid.setText(TodaySchedule.LoggedAccount);
-            info.setText("");
-        }else {
-            userid.setText("你没有登录");
-            info.setText("快去登录");
-        }
-
+        ImageView imageView = theview.findViewById(R.id.pc_portrait);
+        LinearLayout container = theview.findViewById(R.id.container);
         RelativeLayout btn1 = theview.findViewById(R.id.btn1);
-        RelativeLayout btn2 = theview.findViewById(R.id.btn2);
         RelativeLayout btn3 = theview.findViewById(R.id.btn3);
         RelativeLayout btn4 = theview.findViewById(R.id.btn4);
 
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-            }
-        });
-        btn2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
+                Intent intent = new Intent(getActivity(), SettingActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -144,6 +154,54 @@ public class PersonalCenterFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        final View v = LayoutInflater.from(getContext()).inflate(R.layout.card_login_or_register, null);
+        Button btnl = v.findViewById(R.id.btn_login);
+        Button btnr = v.findViewById(R.id.btn_register);
+        btnl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
+        container.addView(v);
+        if(TodaySchedule.isLogged()){
+            for(int i = 0;i<container.getChildCount();i++){
+                container.getChildAt(i).setVisibility(View.VISIBLE);
+            }
+            v.setVisibility(imageView.GONE);
+            User_Info.findUserInfo(TodaySchedule.UserID, new FindListener<User_Info>() {
+                @Override
+                public void done(List<User_Info> list, BmobException e) {
+                    if(e==null&&!list.isEmpty()){
+                        User_Info user_info = list.get(0);
+                        userid.setText(user_info.getNickName());
+                        info.setText("id:"+TodaySchedule.LoggedAccount);
+                        Base64Coder.LoadProtrait(getActivity(),user_info.getPortraitID(),imageView);
+                    }
+
+                }
+            });
+        }else {
+            for(int i = 0;i<container.getChildCount();i++){
+                container.getChildAt(i).setVisibility(View.GONE);
+            }
+            v.setVisibility(View.VISIBLE);
+            userid.setText("你没有登录");
+            info.setText("快去登录");
+
+
+        }
+
+
     }
 
 }

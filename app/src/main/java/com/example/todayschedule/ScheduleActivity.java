@@ -6,6 +6,7 @@ import androidx.appcompat.app.AlertDialog;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.annotation.SuppressLint;
@@ -100,9 +101,9 @@ public class ScheduleActivity extends AppCompatActivity {
         drawerLayout.addDrawerListener(mActionBarDrawerToggle);
         mActionBarDrawerToggle.syncState();
 
-        LinearLayout nav_header = (LinearLayout) navigationView.getHeaderView(0);
-        nav_title = (TextView) nav_header.getChildAt(0);
-        nav_subtitle = (TextView) nav_header.getChildAt(1);
+        ConstraintLayout nav_header = (ConstraintLayout) navigationView.getHeaderView(0);
+        nav_title = (TextView) nav_header.findViewById(R.id.nav_title);
+        nav_subtitle = (TextView) nav_header.findViewById(R.id.nav_subtitle);
 
         AddCourse.setOnClickListener(new View.OnClickListener() {
             @Override
