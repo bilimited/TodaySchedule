@@ -3,19 +3,22 @@
     <item
         android:id="@+id/bnm_item1"
         android:icon="@drawable/home"
-        android:iconTint="@color/white"
+        android:iconTint="@color/text_gray"
         android:title="主页"
+        android:checked="false"
         />
     <item
         android:id="@+id/bnm_item2"
         android:icon="@drawable/forum"
-        android:iconTint="@color/white"
+        android:iconTint="@color/text_gray"
         android:title="讨论区"
+        android:checked="false"
         />
     <item
         android:id="@+id/bnm_item3"
         android:icon="@drawable/user_circle"
-        android:iconTint="@color/white"
+        android:iconTint="@color/text_gray"
         android:title="我"
+        android:checked="false"
         />
 </menu>

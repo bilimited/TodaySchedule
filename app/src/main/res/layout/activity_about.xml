@@ -33,5 +33,12 @@
         android:autoLink="all"
         android:text="制作人员名单："
         android:layout_marginBottom="20dp"/>
+    <ImageView
+        android:id="@+id/welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@color/colorPrimary"
+        />
+
 
 </LinearLayout>

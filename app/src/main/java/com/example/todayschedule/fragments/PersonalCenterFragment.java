@@ -155,7 +155,7 @@ public class PersonalCenterFragment extends Fragment {
             }
         });
         final View v = LayoutInflater.from(getContext()).inflate(R.layout.card_login_or_register, null);
-        Button btnl = v.findViewById(R.id.btn_login);
+        TextView btnl = v.findViewById(R.id.btn_login);
         Button btnr = v.findViewById(R.id.btn_register);
         btnl.setOnClickListener(new View.OnClickListener() {
             @Override

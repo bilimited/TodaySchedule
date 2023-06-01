@@ -16,10 +16,15 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.todayschedule.bean.Image;
 import com.example.todayschedule.fragments.ForumFragment;
 import com.example.todayschedule.fragments.MainFragment;
@@ -43,10 +48,38 @@ public class MainActivity extends AppCompatActivity {
     //用来记录现在的Fragment。
     private static int nowFragment = 0;
 
+    private static boolean isFirstOpen = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if(isFirstOpen){
+            LinearLayout linearLayout = findViewById(R.id.welcome_panel);
+            ImageView imageView = findViewById(R.id.welcome);
+            linearLayout.bringToFront();
+            Glide.with(this).load(R.drawable.logo_anim_long).into(imageView);
+            Animation mShowAction = new AlphaAnimation(1,0);
+            mShowAction.setDuration(500);
+            mShowAction.setStartOffset(2500);
+            mShowAction.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    linearLayout.setVisibility(View.GONE);
+                    isFirstOpen=false;
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+            linearLayout.setAnimation(mShowAction);
+        }
         init();
 
     }
