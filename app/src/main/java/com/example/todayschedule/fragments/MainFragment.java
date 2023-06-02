@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,14 +17,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.todayschedule.EditActivity;
+import com.example.todayschedule.LoginActivity;
 import com.example.todayschedule.NoticeActivity;
 import com.example.todayschedule.R;
 import com.example.todayschedule.ScheduleActivity;
 import com.example.todayschedule.TodaySchedule;
+import com.example.todayschedule.bean.Course;
 import com.example.todayschedule.bean.Image;
 import com.example.todayschedule.bean.Notice;
 import com.example.todayschedule.tool.Base64Coder;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
@@ -84,21 +90,87 @@ public class MainFragment extends Fragment {
     LinearLayout container;
 
     public void init(){
+        TextView title = theview.findViewById(R.id.clsTitle);
+        TextView subtitle = theview.findViewById(R.id.subTitle);
+        ConstraintLayout cardView = theview.findViewById(R.id.cardView);
+        if(!TodaySchedule.isLogged()){
+            title.setText("未登录");
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(intent);
+                }
+            });
+            subtitle.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), ScheduleActivity.class);
+                    startActivity(intent);
+                }
+            });
+        }else{
+            subtitle.setVisibility(View.GONE);
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getActivity(), ScheduleActivity.class);
+                    startActivity(intent);
+                }
+            });
+        }
         container = theview.findViewById(R.id.notice_board);
-        CardView cardView = theview.findViewById(R.id.cardView);
-        cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), ScheduleActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 
     @Override
     public void onStart() {
         super.onStart();
         reflesh();
+        if(TodaySchedule.isLogged()){
+            loadClass();
+        }
+
+    }
+
+    private void loadClass(){
+        LinearLayout container = theview.findViewById(R.id.class_container);
+        container.removeAllViews();
+        /**
+         * 加载课表
+         */
+        //ArrayList<Course> coursesList = new ArrayList<>(); //课程列表
+        BmobQuery<Course> bmobQuery = new BmobQuery<>();
+        bmobQuery.findObjects(new FindListener<Course>() {
+            @Override
+            public void done(List<Course> list, BmobException e) {
+                if(e==null){
+                    final Calendar c = Calendar.getInstance();
+                    Log.d("test","today="+c.get(Calendar.DAY_OF_WEEK));
+                    int count = 0;
+                    for(Course course : list){
+                        Log.d("test","day:"+ course.getDay());
+                        if(course.getUserid().equals(TodaySchedule.UserID)&&course.getDay()==c.get(Calendar.DAY_OF_WEEK)-1){
+                            final View v = LayoutInflater.from(getContext()).inflate(R.layout.card_class, null);
+                            TextView clsTitle = v.findViewById(R.id.cls_name);
+                            TextView clsInfo = v.findViewById(R.id.cls_info);
+                            clsTitle.setText(course.getCourseName());
+                            clsInfo.setText("教室 "+course.getClassRoom()+
+                                            " "+course.getTeacher()+
+                                            " "+course.getStart()+
+                                            "-"+course.getEnd());
+                            container.addView(v);
+
+                            count++;
+                            if(count>=3){
+                                break;
+                            }
+                        }
+                    }
+                }else {
+                    Toast.makeText(getActivity(),"读取课程时发生错误："+e.getErrorCode(),Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     private void loadNotice(){

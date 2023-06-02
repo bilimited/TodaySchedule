@@ -6,17 +6,24 @@
     android:layout_height="wrap_content"
     android:background="@color/white">
 
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="@color/white"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/portrait"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="15dp"
-        app:shapeAppearance="@style/CircleStyle"
         android:scaleType="centerCrop"
         android:src="@color/colorPrimary"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/view"
+        app:shapeAppearance="@style/CircleStyle" />
 
     <ImageView
         android:id="@+id/image"

@@ -3,11 +3,13 @@ package com.example.todayschedule;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -46,6 +48,13 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        /*
+            登录状态下无法注册
+         */
+        if(TodaySchedule.isLogged()){
+            Log.e("test","登录状态，自动退出注册页面");
+            finish();
+        }
         init();
 
         //获取验证码
@@ -172,7 +181,8 @@ public class RegisterActivity extends AppCompatActivity {
                             if (e == null) {
                                 //注册成功，回到登录页面
                                 Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
-                                finish();
+                                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                                startActivity(intent);
                             } else {
                                 Toast.makeText(RegisterActivity.this, "注册失败", Toast.LENGTH_SHORT).show();
                             }

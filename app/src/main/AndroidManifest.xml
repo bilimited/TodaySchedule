@@ -14,9 +14,9 @@
     <application
         android:name=".TodaySchedule"
         android:allowBackup="true"
-        android:icon="@drawable/todaysch"
-        android:label="今日课表~☺"
-        android:roundIcon="@drawable/todaysch"
+        android:icon="@drawable/icon_white2"
+        android:label="今日课表"
+        android:roundIcon="@drawable/icon_white2"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">

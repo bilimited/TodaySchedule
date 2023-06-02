@@ -103,6 +103,7 @@ public class PersonalCenterFragment extends Fragment {
     private void init(){
         TextView userid = theview.findViewById(R.id.userid);
         TextView info = theview.findViewById(R.id.desc);
+        TextView infoUniv = theview.findViewById(R.id.univ);
         ImageView imageView = theview.findViewById(R.id.pc_portrait);
         LinearLayout container = theview.findViewById(R.id.container);
         RelativeLayout btn1 = theview.findViewById(R.id.btn1);
@@ -185,6 +186,7 @@ public class PersonalCenterFragment extends Fragment {
                         User_Info user_info = list.get(0);
                         userid.setText(user_info.getNickName());
                         info.setText("id:"+TodaySchedule.LoggedAccount);
+                        infoUniv.setText(user_info.getUniversity());
                         Base64Coder.LoadProtrait(getActivity(),user_info.getPortraitID(),imageView);
                     }
 
@@ -197,7 +199,7 @@ public class PersonalCenterFragment extends Fragment {
             v.setVisibility(View.VISIBLE);
             userid.setText("你没有登录");
             info.setText("快去登录");
-
+            infoUniv.setText("");
 
         }
 

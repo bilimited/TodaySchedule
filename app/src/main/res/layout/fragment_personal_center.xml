@@ -6,54 +6,48 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:layout_alignParentTop="true"
-        android:background="@color/colorPrimary"
-        tools:ignore="MissingConstraints"></androidx.appcompat.widget.Toolbar>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/card"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="180dp"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="0dp"
-        app:layout_constraintTop_toTopOf="@id/toolbar"
-        >
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
         <!--背景图片-->
         <ImageView
             android:id="@+id/bg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            />
+            android:src="@color/colorPrimary" />
+
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/pc_portrait"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:scaleType="centerCrop"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="68dp"
-            android:src="@color/colorAccent"
-            app:strokeColor="@color/white"
             android:padding="2dp"
-            app:strokeWidth="3dp"
+            android:scaleType="centerCrop"
+            android:src="@color/colorAccent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.09"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearance="@style/CircleStyle"/>
+            app:shapeAppearance="@style/CircleStyle"
+            app:strokeColor="@color/white"
+            app:strokeWidth="3dp" />
 
         <TextView
             android:id="@+id/userid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
-
             android:text="这里输入用户名"
+
+            android:textSize="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.11"
@@ -62,10 +56,10 @@
             app:layout_constraintVertical_bias="0.25" />
 
         <TextView
-            android:id="@+id/desc"
+            android:id="@+id/univ"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="个性签名"
+            android:text="xx大学"
 
             android:textSize="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -75,9 +69,23 @@
             app:layout_constraintTop_toBottomOf="@+id/userid"
             app:layout_constraintVertical_bias="0.100000024" />
 
+        <TextView
+            android:id="@+id/desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="个性签名"
+            android:textSize="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/univ"
+            app:layout_constraintTop_toBottomOf="@+id/userid"
+            app:layout_constraintVertical_bias="0.100000024" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <LinearLayout
+    <!--LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="30dp"
@@ -86,18 +94,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/card"
-        android:orientation="horizontal" />
+        android:orientation="horizontal" /-->
 
     <LinearLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar"
+        android:layout_below="@id/card"
 
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+        app:layout_constraintTop_toBottomOf="@+id/card">
 
 
         <RelativeLayout
@@ -121,6 +129,47 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="60dp"
                 android:text="学生信息"
+                android:textColor="@color/text_gray"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:src="@drawable/chevron_right"
+
+                />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#1A000000" />
+
+        <RelativeLayout
+            android:id="@+id/user_access"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:clickable="true">
+
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/help_circle"
+                app:tint="@color/nav_menu_icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="60dp"
+                android:text="用户协议"
                 android:textColor="@color/text_gray"
                 android:textSize="16sp" />
 
@@ -222,9 +271,10 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#1A000000" />
+
         <Space
             android:layout_width="match_parent"
-            android:layout_height="300dp"/>
+            android:layout_height="300dp" />
 
     </LinearLayout>
 

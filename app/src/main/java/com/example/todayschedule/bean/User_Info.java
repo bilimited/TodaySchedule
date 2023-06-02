@@ -30,6 +30,16 @@ public class User_Info extends BmobObject {
     int gender;
     String portraitID;
 
+    boolean isPublic;
+
+    public boolean getPublic() {
+        return isPublic;
+    }
+
+    public void setPublic(boolean aPublic) {
+        isPublic = aPublic;
+    }
+
     //该userinfo隶属哪个用户
     String userID;
 

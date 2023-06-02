@@ -109,10 +109,9 @@ public class LoginActivity extends AppCompatActivity {
                                                 editor.putString("lastPassword","");
                                             }
                                             editor.commit();
-
-                                            //Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                            //startActivity(intent);
-                                            finish();
+                                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                            startActivity(intent);
+                                            //finish();
                                             break;
                                         }else {
                                             Toast.makeText(LoginActivity.this, "密码错误", Toast.LENGTH_SHORT).show();

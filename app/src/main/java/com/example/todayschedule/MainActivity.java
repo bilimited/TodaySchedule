@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onAnimationEnd(Animation animation) {
                     linearLayout.setVisibility(View.GONE);
                     isFirstOpen=false;
+
                 }
 
                 @Override
@@ -80,8 +81,8 @@ public class MainActivity extends AppCompatActivity {
             });
             linearLayout.setAnimation(mShowAction);
         }
-        init();
 
+        init();
     }
 
     @Override
@@ -119,9 +120,12 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        ActionBarDrawerToggle mActionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,R.string.app_name,R.string.app_name);
-        drawerLayout.addDrawerListener(mActionBarDrawerToggle);
-        mActionBarDrawerToggle.syncState();
+        /*
+        暂时取消了主侧边栏
+         */
+        //ActionBarDrawerToggle mActionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,R.string.app_name,R.string.app_name);
+        //drawerLayout.addDrawerListener(mActionBarDrawerToggle);
+        //mActionBarDrawerToggle.syncState();
 
         ConstraintLayout nav_header = (ConstraintLayout) navigationView.getHeaderView(0);
         nav_title = (TextView) nav_header.findViewById(R.id.nav_title);
