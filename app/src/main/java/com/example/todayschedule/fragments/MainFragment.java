@@ -89,10 +89,26 @@ public class MainFragment extends Fragment {
 
     LinearLayout container;
 
+    public static int[] bg_list = {
+            R.drawable.bg1,
+            R.drawable.bg2,
+            R.drawable.bg3,
+            R.drawable.bg4,
+            R.drawable.bg5,
+            R.drawable.bg6,
+    };
+
     public void init(){
         TextView title = theview.findViewById(R.id.clsTitle);
         TextView subtitle = theview.findViewById(R.id.subTitle);
         ConstraintLayout cardView = theview.findViewById(R.id.cardView);
+        ImageView changeImageButton = theview.findViewById(R.id.change_image);
+        changeImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         if(!TodaySchedule.isLogged()){
             title.setText("未登录");
             cardView.setOnClickListener(new View.OnClickListener() {
@@ -134,7 +150,7 @@ public class MainFragment extends Fragment {
 
     private void loadClass(){
         LinearLayout container = theview.findViewById(R.id.class_container);
-        container.removeAllViews();
+
         /**
          * 加载课表
          */
@@ -143,11 +159,13 @@ public class MainFragment extends Fragment {
         bmobQuery.findObjects(new FindListener<Course>() {
             @Override
             public void done(List<Course> list, BmobException e) {
-                if(e==null){
+                if(e==null&&!list.isEmpty()){
                     final Calendar c = Calendar.getInstance();
                     Log.d("test","today="+c.get(Calendar.DAY_OF_WEEK));
                     int count = 0;
                     for(Course course : list){
+
+                        container.removeAllViews();
                         Log.d("test","day:"+ course.getDay());
                         if(course.getUserid().equals(TodaySchedule.UserID)&&course.getDay()==c.get(Calendar.DAY_OF_WEEK)-1){
                             final View v = LayoutInflater.from(getContext()).inflate(R.layout.card_class, null);
@@ -165,6 +183,10 @@ public class MainFragment extends Fragment {
                                 break;
                             }
                         }
+                    }
+                    if(count==0){
+                        TextView title = theview.findViewById(R.id.clsTitle);
+                        title.setText("好耶！今天没课(☆▽☆)");
                     }
                 }else {
                     Toast.makeText(getActivity(),"读取课程时发生错误："+e.getErrorCode(),Toast.LENGTH_SHORT).show();

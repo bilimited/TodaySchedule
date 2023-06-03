@@ -56,6 +56,16 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <ImageView
+                    android:id="@+id/change_image"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginRight="16dp"
+                    android:src="@drawable/image"
+                    app:tint="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/clsTitle" />
+
                 <LinearLayout
                     android:id="@+id/class_container"
                     android:layout_width="match_parent"

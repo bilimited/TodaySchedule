@@ -18,6 +18,7 @@ public class InputJsonActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_json);
+        getWindow().setBackgroundDrawable(getDrawable(R.drawable.dialog_bg));
         Button button = findViewById(R.id.submit_json_button);
         editText = findViewById(R.id.showjson);
         radioButton = findViewById(R.id.radio_isSave);

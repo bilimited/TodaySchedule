@@ -1,39 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="308dp"
-    android:layout_height="match_parent"
+    android:layout_height="500dp"
+    android:orientation="vertical"
     tools:context=".InputJsonActivity"
     android:background="@color/white">
 
     <EditText
         android:id="@+id/showjson"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:hint="将json文本复制到此处"
-        android:inputType="textMultiLine"/>
-
-    <Button
-        android:id="@+id/submit_json_button"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:background="@color/colorPrimary"
-        android:text="确定"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:hint="将json文本复制到此处"
+        android:layout_weight="1"
+        android:inputType="textMultiLine"/>
 
     <RadioButton
         android:id="@+id/radio_isSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="保存"
-        android:layout_marginBottom="20dp"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/submit_json_button"
-        app:layout_constraintEnd_toEndOf="@+id/submit_json_button"
-        app:layout_constraintStart_toStartOf="@+id/submit_json_button" />
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="16dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <Button
+        android:id="@+id/submit_json_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:layout_margin="16dp"
+        android:text="确定"
+        android:background="@drawable/shape_btn"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+
+</LinearLayout>

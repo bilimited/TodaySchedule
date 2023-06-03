@@ -17,7 +17,7 @@ public class ShowJsonActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_json);
-
+        getWindow().setBackgroundDrawable(getDrawable(R.drawable.dialog_bg));
         copyStr = getIntent().getStringExtra("json");
 
         EditText editText = findViewById(R.id.showjson);

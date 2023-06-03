@@ -21,6 +21,7 @@ public class SeeCourseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_see_course);
+        getWindow().setBackgroundDrawable(getDrawable(R.drawable.dialog_bg));
         Intent intent = getIntent();
         final Course seeCourse = (Course) intent.getSerializableExtra("seeCourse");
         final TextView seeCourseName = (TextView) findViewById(R.id.see_course_name);

@@ -1,6 +1,8 @@
 package com.example.todayschedule;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -31,6 +33,9 @@ public class AddCourseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_course);
         setFinishOnTouchOutside(false);
+
+        //圆角Dialog
+        getWindow().setBackgroundDrawable(getDrawable(R.drawable.dialog_bg));
 
        inputCourseName = (EditText) findViewById(R.id.course_name);
        inputTeacher = (EditText) findViewById(R.id.teacher_name);
