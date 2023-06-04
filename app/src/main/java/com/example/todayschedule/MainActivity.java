@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,18 +33,15 @@ import com.example.todayschedule.fragments.PersonalCenterFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
+
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 
 public class MainActivity extends AppCompatActivity {
 
     DrawerLayout drawerLayout;
-    NavigationView navigationView;
     private BottomNavigationView mBottomNavigationView;
     private Fragment[]mFragments = new Fragment[4];
-
-    TextView nav_title;
-    TextView nav_subtitle;
 
     //用来记录现在的Fragment。
     private static int nowFragment = 0;
@@ -88,15 +86,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
-        if(!TodaySchedule.isLogged()){
-            nav_title.setText("未登录");
-            nav_subtitle.setText("登录以变得更强");
-        }else {
-            nav_title.setText("早上好,"+TodaySchedule.LoggedAccount);
-            nav_subtitle.setText("😄");
-        }
-
         //不知道为什么登录之后背景颜色会变黑。 暴力修复。
         drawerLayout.setBackgroundColor(getResources().getColor(R.color.white));
     }
@@ -115,103 +104,16 @@ public class MainActivity extends AppCompatActivity {
         });
 
         drawerLayout = findViewById(R.id.main_drawer);
-        navigationView = findViewById(R.id.main_nav_view);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         /*
-        暂时取消了主侧边栏
+         * 暂时取消了主侧边栏
          */
         //ActionBarDrawerToggle mActionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,R.string.app_name,R.string.app_name);
         //drawerLayout.addDrawerListener(mActionBarDrawerToggle);
         //mActionBarDrawerToggle.syncState();
-
-        ConstraintLayout nav_header = (ConstraintLayout) navigationView.getHeaderView(0);
-        nav_title = (TextView) nav_header.findViewById(R.id.nav_title);
-        nav_subtitle = (TextView) nav_header.findViewById(R.id.nav_subtitle);
-
-
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.user_setting:{
-                        if(TodaySchedule.isLogged()){
-                            Intent intent = new Intent(MainActivity.this,SettingActivity.class);
-                            startActivity(intent);
-                        }else {
-                            Toast.makeText(MainActivity.this, "你好像...并没有登录", Toast.LENGTH_SHORT).show();
-                        }
-                        break;
-                    }
-                    case R.id.use_license:{
-                        Intent intent = new Intent(MainActivity.this,AgreementActivity.class);
-                        startActivity(intent);
-                        break;
-                    }
-                    case R.id.nm_quit:{
-                        if(TodaySchedule.isLogged()){
-                            AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
-                            builder.setMessage("确认退出?");
-                            builder.setPositiveButton("确认", new DialogInterface.OnClickListener(){
-                                @Override
-                                public void onClick(DialogInterface dialog, int arg1) {
-                                    TodaySchedule.logout();
-                                    //loadData();//重置数据
-                                    dialog.dismiss();
-                                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                                    startActivity(intent);
-                                }
-
-                            });
-                            builder.setNegativeButton("取消", new DialogInterface.OnClickListener(){
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            });
-                            builder.create().show();
-                        }else {
-                            Toast.makeText(MainActivity.this, "你好像...并没有登录", Toast.LENGTH_SHORT).show();
-                        }
-                        break;
-                    }
-                }
-                return false;
-            }
-        });
-        nav_title.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(TodaySchedule.isLogged()){
-                    AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
-                    builder.setMessage("确认退出?");
-                    builder.setPositiveButton("确认", new DialogInterface.OnClickListener(){
-                        @Override
-                        public void onClick(DialogInterface dialog, int arg1) {
-                            TodaySchedule.logout();
-                            //loadData();//重置数据
-                            dialog.dismiss();
-                            Intent intent = new Intent(MainActivity.this,LoginActivity.class);
-                            startActivity(intent);
-                        }
-
-                    });
-                    builder.setNegativeButton("取消", new DialogInterface.OnClickListener(){
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-                    builder.create().show();
-                }else {
-                    Intent intent = new Intent(MainActivity.this,LoginActivity.class);
-                    startActivity(intent);
-                }
-
-            }
-        });
 
         mFragments[0] = new MainFragment();
         mFragments[1] = new ForumFragment();

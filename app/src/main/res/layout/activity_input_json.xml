@@ -13,7 +13,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="将json文本复制到此处"
+        android:textAlignment="center"
+        android:background="@null"
         android:layout_weight="1"
+        android:layout_margin="16dp"
         android:inputType="textMultiLine"/>
 
     <RadioButton

@@ -39,6 +39,7 @@
             android:hint="手机号码"
             android:inputType="textPersonName"
             android:paddingLeft="10dp"
+            android:textColorHint="@color/white"
 
 
             app:layout_constraintEnd_toEndOf="parent"
@@ -96,6 +97,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="自动登录"
+            android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="@+id/PasswordText"
             app:layout_constraintTop_toBottomOf="@+id/PasswordText" />
 

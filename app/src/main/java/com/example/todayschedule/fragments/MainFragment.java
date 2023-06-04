@@ -1,6 +1,9 @@
 package com.example.todayschedule.fragments;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
@@ -21,6 +24,7 @@ import com.example.todayschedule.LoginActivity;
 import com.example.todayschedule.NoticeActivity;
 import com.example.todayschedule.R;
 import com.example.todayschedule.ScheduleActivity;
+import com.example.todayschedule.SetBgActivity;
 import com.example.todayschedule.TodaySchedule;
 import com.example.todayschedule.bean.Course;
 import com.example.todayschedule.bean.Image;
@@ -52,7 +56,7 @@ public class MainFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    SharedPreferences sharedPreferences;
     View theview;
 
     public MainFragment() {
@@ -83,6 +87,7 @@ public class MainFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         theview = inflater.inflate(R.layout.fragment_main, container, false);
+
         init();
         return theview;
     }
@@ -98,15 +103,18 @@ public class MainFragment extends Fragment {
             R.drawable.bg6,
     };
 
+
     public void init(){
         TextView title = theview.findViewById(R.id.clsTitle);
         TextView subtitle = theview.findViewById(R.id.subTitle);
         ConstraintLayout cardView = theview.findViewById(R.id.cardView);
         ImageView changeImageButton = theview.findViewById(R.id.change_image);
+
         changeImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getActivity(), SetBgActivity.class);
+                startActivity(intent);
             }
         });
         if(!TodaySchedule.isLogged()){
@@ -138,6 +146,7 @@ public class MainFragment extends Fragment {
         container = theview.findViewById(R.id.notice_board);
     }
 
+
     @Override
     public void onStart() {
         super.onStart();
@@ -145,7 +154,21 @@ public class MainFragment extends Fragment {
         if(TodaySchedule.isLogged()){
             loadClass();
         }
+        setBackground(TodaySchedule.background_id);
 
+    }
+
+    /**
+     * TODO:为什么自定义背景退出来之后就会变成白屏？？？
+     * @param bgid
+     */
+    private void setBackground(int bgid){
+        ImageView background = theview.findViewById(R.id.imageView3);
+        if(bgid<6){
+            background.setImageResource(bg_list[bgid]);
+        }else {
+            background.setImageURI(TodaySchedule.background_url);
+        }
     }
 
     private void loadClass(){
@@ -159,12 +182,11 @@ public class MainFragment extends Fragment {
         bmobQuery.findObjects(new FindListener<Course>() {
             @Override
             public void done(List<Course> list, BmobException e) {
-                if(e==null&&!list.isEmpty()){
+                if(e==null){
                     final Calendar c = Calendar.getInstance();
                     Log.d("test","today="+c.get(Calendar.DAY_OF_WEEK));
                     int count = 0;
                     for(Course course : list){
-
                         container.removeAllViews();
                         Log.d("test","day:"+ course.getDay());
                         if(course.getUserid().equals(TodaySchedule.UserID)&&course.getDay()==c.get(Calendar.DAY_OF_WEEK)-1){

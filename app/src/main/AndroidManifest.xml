@@ -22,6 +22,7 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".SetBgActivity"
+            android:label="更换背景"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

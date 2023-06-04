@@ -1,4 +1,4 @@
-package com.example.todayschedule;
+package com.example.todayschedule.bean;
 
 public class University {
     private int id;

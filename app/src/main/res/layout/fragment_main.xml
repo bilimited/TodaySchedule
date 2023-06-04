@@ -51,7 +51,6 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="20dp"
                     android:text="本日课程"
-                    android:textColor="@color/white"
                     android:textSize="25dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

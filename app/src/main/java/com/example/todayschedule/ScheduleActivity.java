@@ -1,11 +1,13 @@
 package com.example.todayschedule;
 
+import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -29,9 +31,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.todayschedule.bean.Course;
+import com.example.todayschedule.bean.User_Info;
+import com.example.todayschedule.fragments.MainFragment;
+import com.example.todayschedule.tool.Base64Coder;
 import com.example.todayschedule.tool.DatabaseHelper;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +66,7 @@ public class ScheduleActivity extends AppCompatActivity {
     ImageView leftMenu;
     TextView nav_title;
     TextView nav_subtitle;
+    ImageView portrait;
 
     NavigationView navigationView;
 
@@ -74,6 +81,14 @@ public class ScheduleActivity extends AppCompatActivity {
 
 }
 
+    private void setBackground(int bgid){
+        ImageView background = findViewById(R.id.bg);
+        if(bgid<6){
+            background.setImageResource(MainFragment.bg_list[bgid]);
+        }else {
+            background.setImageURI(TodaySchedule.background_url);
+        }
+    }
 
     private void init(){
 
@@ -104,6 +119,8 @@ public class ScheduleActivity extends AppCompatActivity {
         ConstraintLayout nav_header = (ConstraintLayout) navigationView.getHeaderView(0);
         nav_title = (TextView) nav_header.findViewById(R.id.nav_title);
         nav_subtitle = (TextView) nav_header.findViewById(R.id.nav_subtitle);
+        portrait = (ImageView)nav_header.findViewById(R.id.shapeableImageView);
+
 
         AddCourse.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -164,6 +181,7 @@ public class ScheduleActivity extends AppCompatActivity {
 
             }
         });
+        setBackground(TodaySchedule.background_id);
     }
 
     @Override
@@ -173,8 +191,17 @@ public class ScheduleActivity extends AppCompatActivity {
             nav_title.setText("未登录");
             nav_subtitle.setText("登录以变得更强");
         }else {
-            nav_title.setText("早上好,"+TodaySchedule.LoggedAccount);
-            nav_subtitle.setText("😄");
+            User_Info.findUserInfo(TodaySchedule.UserID, new FindListener<User_Info>() {
+                @Override
+                public void done(List<User_Info> list, BmobException e) {
+                    if(e==null&&!list.isEmpty()){
+                        User_Info user_info = list.get(0);
+                        nav_title.setText(user_info.getNickName());
+                        nav_subtitle.setText("id:"+TodaySchedule.LoggedAccount);
+                        Base64Coder.LoadProtrait(ScheduleActivity.this,user_info.getPortraitID(),portrait);
+                    }
+                }
+            });
         }
 
 
@@ -210,6 +237,24 @@ public class ScheduleActivity extends AppCompatActivity {
             createLeftView(course);
             createItemCourseView(course);
         }
+    }
+
+
+    private int[] cls_colors = {
+            R.color.cls_1,
+            R.color.cls_2,
+            R.color.cls_3,
+            R.color.cls_4,
+            R.color.cls_5,
+            R.color.cls_6,
+            R.color.cls_7,
+            R.color.cls_8,
+    };
+
+    @ColorRes
+    private int getCourseColor(Course course){
+        int seed = (course.getDay()*10+course.getStart())%8;
+        return cls_colors[seed];
     }
 
     //将数据从云端同步到本地
@@ -284,7 +329,8 @@ public class ScheduleActivity extends AppCompatActivity {
 
     @SuppressLint("Range")
     private void dataToJson(){
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+
         if(TodaySchedule.isLogged()){
             ArrayList<Course> coursesList = new ArrayList<>(); //课程列表
             BmobQuery<Course> bmobQuery = new BmobQuery<>();
@@ -345,7 +391,15 @@ public class ScheduleActivity extends AppCompatActivity {
                     return;
                 }else {
                     for (Course course:courses){
-                        bmob_saveData(course);
+                        Course course1 = new Course(
+                                course.getCourseName(),
+                                course.getTeacher(),
+                                course.getClassRoom(),
+                                course.getDay(),
+                                course.getStart(),
+                                course.getEnd()
+                        );
+                        bmob_saveData(course1);
                     }
                 }
             }else {
@@ -355,6 +409,12 @@ public class ScheduleActivity extends AppCompatActivity {
                 }
             }
         }catch (Exception e){
+            Log.e("test",e.getMessage());
+            Log.e("test", String.valueOf(e.getCause()));
+            for(StackTraceElement s: e.getStackTrace()){
+                Log.e("test", String.valueOf(s));
+            }
+
             Toast.makeText(this, "解析失败，请检查数据格式是否有误!", Toast.LENGTH_SHORT).show();
         }
 
@@ -408,10 +468,11 @@ public class ScheduleActivity extends AppCompatActivity {
             v.setY(height * (course.getStart()-1)); //设置开始高度,即第几节课开始
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams
                     (ViewGroup.LayoutParams.MATCH_PARENT,(course.getEnd()-course.getStart()+1)*height - 8); //设置布局高度,即跨多少节课
-
             v.setLayoutParams(params);
             TextView text = v.findViewById(R.id.text_view);
             text.setText(course.getCourseName() + "\n" + course.getTeacher() + "\n" + course.getClassRoom()); //显示课程名
+            CardView cardView = v.findViewById(R.id.course_card);
+            cardView.setCardBackgroundColor(getResources().getColor(getCourseColor(course)));
             day.addView(v);
 
             //查看课程
@@ -536,9 +597,8 @@ public class ScheduleActivity extends AppCompatActivity {
                             String.valueOf(PreCourse.getEnd())});
         }
 
-        if(requestCode == 4 && resultCode == Activity.RESULT_OK && data != null){
+        if(requestCode == TodaySchedule.REQUEST_PUT_JSON && resultCode == Activity.RESULT_OK && data != null){
             fromJson(data.getStringExtra("json"),data.getBooleanExtra("isSave",false));
-
         }
 
     }

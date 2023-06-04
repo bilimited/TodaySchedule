@@ -222,10 +222,10 @@ public class SettingActivity extends AppCompatActivity {
     }
 
 
-
     private List<String> getUniversitiesForProvince(String provinceName) {
         Map<String, List<String>> universitiesMap = new HashMap<>(); // 硬编码的哈希映射
         // 增加省份对应的大学列表
+        universitiesMap.put("河南", Arrays.asList("河南大学", "开封大学", "河南财经政法大学", "河南工程学院", "河南工业大学", "河南警察学院", "河南科技大学", "河南理工大学", "河南牧业经济学院", "河南农业大学", "河南师范大学", "河南中医药大学", "洛阳师范学院", "南阳师范学院", "平顶山学院", "商丘师范学院", "新乡医学院", "新乡学院", "信阳师范学院", "许昌学院", "郑州航空工业管理学院", "郑州工程技术学院", "郑州工业应用技术学院", "郑州华信学院", "郑州科技学院", "郑州轻工业学院", "郑州师范学院"));
         universitiesMap.put("北京", Arrays.asList("清华大学", "北京大学", "中国人民大学","北京电影学院", "北京电子科技学院", "北京服装学院", "北京工商大学", "北京工业大学", "北京航空航天大学", "北京化工大学", "北京建筑大学", "北京交通大学", "北京科技大学", "北京理工大学", "北京林业大学", "北京师范大学", "北京体育大学", "北京外国语大学", "北京舞蹈学院", "北京信息科技大学", "北京印刷学院", "北京语言大学", "北京中医药大学", "对外经济贸易大学", "首都经济贸易大学", "首都师范大学", "中国农业大学", "中国地质大学（北京）", "中国传媒大学", "中国矿业大学（北京）", "中国劳动关系学院", "中国美术学院", "中国民航大学", "中国农业科学院", "中国青年政治学院", "中国人民公安大学", "中国人民大学", "中国石油大学（北京）", "中国戏曲学院", "中国音乐学院", "中华女子学院"));
         universitiesMap.put("天津", Arrays.asList("天津大学", "南开大学", "天津科技大学", "中国民航大学", "天津理工大学", "天津工业大学", "天津农学院", "天津医科大学", "天津中医药大学", "天津师范大学", "天津外国语大学", "天津财经大学", "天津商业大学", "天津体育学院", "天津音乐学院", "天津美术学院", "天津职业技术师范大学"));
         universitiesMap.put("安徽", Arrays.asList("安徽农业大学", "安徽工程大学", "安徽工业大学", "安徽建筑大学", "安徽理工大学", "安徽师范大学", "安徽医科大学", "安徽中医药大学", "合肥工业大学", "合肥学院", "皖南医学院", "中国科学技术大学"));
@@ -236,7 +236,6 @@ public class SettingActivity extends AppCompatActivity {
         universitiesMap.put("贵州", Arrays.asList("贵阳中医学院", "贵阳学院", "贵阳医学院", "贵州财经大学", "贵州大学", "贵州工程应用技术学院", "贵州理工学院", "贵州民族大学", "贵州师范大学", "遵义医学院", "遵义师范学院"));
         universitiesMap.put("海南", Arrays.asList("海南大学", "海南热带海洋学院"));
         universitiesMap.put("河北", Arrays.asList("保定学院", "河北工程大学", "河北工业大学", "河北师范大学", "河北体育学院", "河北医科大学", "河北农业大学", "华北电力大学", "华北科技学院", "华北水利水电大学", "廊坊师范学院", "燕山大学", "河北地质大学", "唐山师范学院"));
-        universitiesMap.put("河南", Arrays.asList("河南大学", "开封大学", "河南财经政法大学", "河南工程学院", "河南工业大学", "河南警察学院", "河南科技大学", "河南理工大学", "河南牧业经济学院", "河南农业大学", "河南师范大学", "河南中医药大学", "洛阳师范学院", "南阳师范学院", "平顶山学院", "商丘师范学院", "新乡医学院", "新乡学院", "信阳师范学院", "许昌学院", "郑州航空工业管理学院", "郑州工程技术学院", "郑州工业应用技术学院", "郑州华信学院", "郑州科技学院", "郑州轻工业学院", "郑州师范学院"));
         universitiesMap.put("山西", Arrays.asList("太原理工大学", "山西大学", "中北大学", "山西医科大学", "山西师范大学", "山西财经大学", "山西农业大学", "长治医学院", "晋中学院", "运城学院", "忻州师范学院", "吕梁学院", "太原学院", "山西传媒学院", "山西工程技术学院", "山西应用科技学院", "山西大同大学", "晋南学院"));
         universitiesMap.put("内蒙古", Arrays.asList("内蒙古大学", "内蒙古工业大学", "内蒙古农业大学", "内蒙古师范大学", "内蒙古民族大学", "内蒙古财经大学", "赤峰学院", "呼伦贝尔学院", "满洲里俄语师范学院", "集宁师范学院", "鄂尔多斯应用技术学院", "呼和浩特民族学院", "阿拉善职业技术学院", "内蒙古建筑职业技术学院", "内蒙古电子信息职业技术学院", "内蒙古机电职业技术学院", "包头钢铁职业技术学院"));
         universitiesMap.put("辽宁", Arrays.asList("大连理工大学", "辽宁大学", "东北大学", "大连海事大学", "辽宁工程技术大学", "沈阳工业大学", "大连工业大学", "沈阳航空航天大学", "沈阳建筑大学", "辽宁石油化工大学", "大连交通大学", "大连海洋大学", "沈阳化工大学", "辽宁科技大学", "鲁迅美术学院", "中国医科大学", "辽宁师范大学", "辽宁财贸学院", "东北财经大学", "大连民族大学", "辽宁警察学院", "沈阳体育学院", "沈阳音乐学院", "鞍山师范学院", "抚顺师范学院", "锦州医科大学", "阜新高等专科学校", "辽宁中医药大学", "辽宁传媒学院", "沈阳大学", "沈阳师范大学"));
@@ -287,13 +286,17 @@ public class SettingActivity extends AppCompatActivity {
         ageSeekBar.setProgress(Integer.valueOf(user_info.getAge()));
         Base64Coder.LoadProtrait(this,user_info.getPortraitID(),avatarImageView);
         //TODO:还有一些剩下的
+        if(user_info.getGender()==1){
+            ((RadioButton) genderRadioGroup.getChildAt(1)).setChecked(true);
+        }
     }
 
     private void save(String protraitID) {
         String nickname = nameEditText.getText().toString();
         String realname = realNameEditText.getText().toString();
-        String prov = selectedProvince;
-        String univ = selectedUniverse;
+        String prov = selectedUniverse;
+        String univ = selectedProvince;
+
         String age = String.valueOf(ageSeekBar.getProgress());
         int gender = 0;
         if (((RadioButton) genderRadioGroup.getChildAt(1)).isChecked()) {

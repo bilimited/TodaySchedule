@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,10 +43,11 @@ public class TodaySchedule extends Application {
     public static String LoggedAccount = "local";
     public static String UserID = "";
     public static boolean IsAdmin = false;
+    public static int background_id = 2;
+    public static Uri background_url;
 
     public static final int REQUEST_SELECT_PIC = 2;
-
-    public static OkHttpClient okHttpClient;
+    public static final int REQUEST_PUT_JSON = 4;
 
     /**
      * 检查用户是否登录。

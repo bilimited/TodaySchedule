@@ -2,6 +2,7 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/course_card"
     android:layout_width="45dp"
     android:layout_height="70dp"
     android:foreground="?android:attr/selectableItemBackground"

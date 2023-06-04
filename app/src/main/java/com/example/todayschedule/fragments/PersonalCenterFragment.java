@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.todayschedule.AboutActivity;
+import com.example.todayschedule.AgreementActivity;
 import com.example.todayschedule.LoginActivity;
 import com.example.todayschedule.MainActivity;
 import com.example.todayschedule.R;
@@ -107,6 +108,7 @@ public class PersonalCenterFragment extends Fragment {
         ImageView imageView = theview.findViewById(R.id.pc_portrait);
         LinearLayout container = theview.findViewById(R.id.container);
         RelativeLayout btn1 = theview.findViewById(R.id.btn1);
+        RelativeLayout btn2 = theview.findViewById(R.id.user_access);
         RelativeLayout btn3 = theview.findViewById(R.id.btn3);
         RelativeLayout btn4 = theview.findViewById(R.id.btn4);
 
@@ -114,6 +116,14 @@ public class PersonalCenterFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), SettingActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AgreementActivity.class);
                 startActivity(intent);
             }
         });

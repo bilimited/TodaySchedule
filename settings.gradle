@@ -10,7 +10,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        maven {url 'https://dl.bintray.com/chaozhouzhang/maven' }
+        maven {url 'https://dl.bintray.com/chaozhouzhang/maven'}
     }
 }
 rootProject.name = "TodaySchedule"

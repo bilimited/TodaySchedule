@@ -1,18 +1,28 @@
 package com.example.todayschedule.bean;
 
 
+import com.google.gson.annotations.Expose;
+
 import java.io.Serializable;
 
 import cn.bmob.v3.BmobObject;
 
 public class Course extends BmobObject implements Serializable {
 
+
     private String userid;
+
+    @Expose
     private String courseName;
+    @Expose
     private String teacher;
+    @Expose
     private String classRoom;
+    @Expose
     private int day;
+    @Expose
     private int classStart;
+    @Expose
     private int classEnd;
 
     public Course(String courseName, String teacher, String classRoom, int day, int classStart, int classEnd, String account) {
