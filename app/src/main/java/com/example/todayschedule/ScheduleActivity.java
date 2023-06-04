@@ -327,6 +327,17 @@ public class ScheduleActivity extends AppCompatActivity {
         });
     }
 
+    private void bmob_changeData(Course course){
+        course.update(new UpdateListener() {
+            @Override
+            public void done(BmobException e) {
+                if(e!=null){
+                    Toast.makeText(ScheduleActivity.this, "无法更新课程:"+e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
     @SuppressLint("Range")
     private void dataToJson(){
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
@@ -551,11 +562,11 @@ public class ScheduleActivity extends AppCompatActivity {
                 day = getViewDay(PreCourse.getDay());
                 day.removeView(ClickedView);//再移除课程视图
                 if(TodaySchedule.isLogged()){
-                    bmob_deleteData(PreCourse);
+                    Course tmp = new Course(PreCourse);
+                    bmob_deleteData(tmp);
                 }else {
                     deleteData(PreCourse);
                 }
-
             } else {
                 /*
                 * 修改课程
@@ -565,9 +576,7 @@ public class ScheduleActivity extends AppCompatActivity {
                 intent.putExtra("isRevise", true);
                 startActivityForResult(intent, 2);
             }
-
         }
-
         if (requestCode == 2 && resultCode == Activity.RESULT_OK && data != null) {
             Course PreCourse = (Course) data.getSerializableExtra("PreCourse");
             Course newCourse = (Course) data.getSerializableExtra("newCourse");
@@ -580,21 +589,36 @@ public class ScheduleActivity extends AppCompatActivity {
             createLeftView(newCourse);
             //创建课程表视图
             createItemCourseView(newCourse);
+            if(!TodaySchedule.isLogged()){
+                SQLiteDatabase sqLiteDatabase = databaseHelper.getWritableDatabase();
+                sqLiteDatabase.execSQL("update courses set " +
+                                "course_name = ?,teacher = ?,class_room=? ,day=? ,class_start=? ,class_end =?" +
+                                "where course_name = ? and day =? and class_start=? and class_end=?",
+                        new String[]{newCourse.getCourseName(),
+                                newCourse.getTeacher(),
+                                newCourse.getClassRoom(),
+                                String.valueOf(newCourse.getDay()),
+                                String.valueOf(newCourse.getStart()),
+                                String.valueOf(newCourse.getEnd()),
+                                PreCourse.getCourseName(),
+                                String.valueOf(PreCourse.getDay()),
+                                String.valueOf(PreCourse.getStart()),
+                                String.valueOf(PreCourse.getEnd())});
+            }else{
+                Course course1 = new Course(
+                        newCourse.getCourseName(),
+                        newCourse.getTeacher(),
+                        newCourse.getClassRoom(),
+                        newCourse.getDay(),
+                        newCourse.getStart(),
+                        newCourse.getEnd(),
+                        newCourse.getUserid()
+                );
+                course1.setObjectId(newCourse.getObjectId());
+                bmob_changeData(course1);
 
-            SQLiteDatabase sqLiteDatabase = databaseHelper.getWritableDatabase();
-            sqLiteDatabase.execSQL("update courses set " +
-                            "course_name = ?,teacher = ?,class_room=? ,day=? ,class_start=? ,class_end =?" +
-                            "where course_name = ? and day =? and class_start=? and class_end=?",
-                    new String[]{newCourse.getCourseName(),
-                            newCourse.getTeacher(),
-                            newCourse.getClassRoom(),
-                            String.valueOf(newCourse.getDay()),
-                            String.valueOf(newCourse.getStart()),
-                            String.valueOf(newCourse.getEnd()),
-                            PreCourse.getCourseName(),
-                            String.valueOf(PreCourse.getDay()),
-                            String.valueOf(PreCourse.getStart()),
-                            String.valueOf(PreCourse.getEnd())});
+            }
+
         }
 
         if(requestCode == TodaySchedule.REQUEST_PUT_JSON && resultCode == Activity.RESULT_OK && data != null){

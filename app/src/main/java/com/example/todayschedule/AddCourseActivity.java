@@ -84,7 +84,8 @@ public class AddCourseActivity extends AppCompatActivity {
                     }
 
                     Course newCourse = new Course(courseName, teacher, classRoom,
-                            Integer.valueOf(day), Integer.valueOf(start), Integer.valueOf(end));
+                            Integer.valueOf(day), Integer.valueOf(start), Integer.valueOf(end),ReviseCourse.getUserid());
+                    newCourse.setObjectId(ReviseCourse.getObjectId());
 
                     Intent intent = new Intent();
                     intent.putExtra("PreCourse",ReviseCourse);

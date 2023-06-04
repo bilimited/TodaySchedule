@@ -25,6 +25,10 @@ public class Course extends BmobObject implements Serializable {
     @Expose
     private int classEnd;
 
+    public Course(Course another_course){
+        setObjectId(another_course.getObjectId());
+    }
+
     public Course(String courseName, String teacher, String classRoom, int day, int classStart, int classEnd, String account) {
         this.courseName = courseName;
         this.teacher = teacher;
