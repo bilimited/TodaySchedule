@@ -186,8 +186,9 @@ public class MainFragment extends Fragment {
                     final Calendar c = Calendar.getInstance();
                     Log.d("test","today="+c.get(Calendar.DAY_OF_WEEK));
                     int count = 0;
+                    container.removeAllViews();
                     for(Course course : list){
-                        container.removeAllViews();
+
                         Log.d("test","day:"+ course.getDay());
                         if(course.getUserid().equals(TodaySchedule.UserID)&&course.getDay()==c.get(Calendar.DAY_OF_WEEK)-1){
                             final View v = LayoutInflater.from(getContext()).inflate(R.layout.card_class, null);

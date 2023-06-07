@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -142,9 +143,9 @@ public class ForumFragment extends Fragment {
         限制预览的内容长度
          */
         if(post.getContent().length()>=100){
-            content.setText(post.getContent().substring(0,100)+"...");
+            content.setText(Html.fromHtml(post.getContent().substring(0,100)+"..."));
         }else {
-            content.setText(post.getContent());
+            content.setText(Html.fromHtml(post.getContent()));
         }
 
         username.setText(post.getAuthor());
@@ -185,6 +186,7 @@ public class ForumFragment extends Fragment {
                     Base64Coder.LoadProtrait(getActivity(),user_info.getPortraitID(),portrait);
                     userinfo.setText(user_info.getUniversity());
                     username.setText(user_info.getNickName());
+                    User_Info.loadToCache(list);
                 }
             }
         });
@@ -209,5 +211,6 @@ public class ForumFragment extends Fragment {
             }
         });
     }
+
 
 }

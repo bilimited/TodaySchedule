@@ -219,6 +219,20 @@
             android:layout_marginRight="40dp"
             />
 
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/addNote"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="3dp"
+            app:contentPadding="10dp"
+            app:shapeAppearance="@style/CircleStyle"
+            android:src="@drawable/note"
+            android:layout_marginBottom="20dp"
+            android:background="@color/white"
+            app:layout_constraintBottom_toTopOf="@+id/addCourse"
+            app:layout_constraintEnd_toEndOf="@+id/addCourse"
+            app:tint="@color/colorPrimary" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView

@@ -1,12 +1,16 @@
 package com.example.todayschedule;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -30,5 +34,14 @@ public class AboutActivity extends AppCompatActivity {
 
         LinearLayout relativeLayout = findViewById(R.id.about);
         relativeLayout.setBackgroundColor(getResources().getColor(R.color.white));
+        TextView link = findViewById(R.id.link);
+        link.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse("https://github.com/bilimited/TodaySchedule");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
     }
 }

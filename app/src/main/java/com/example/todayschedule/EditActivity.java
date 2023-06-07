@@ -1,5 +1,6 @@
 package com.example.todayschedule;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -7,23 +8,37 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.todayschedule.bean.Comment;
 import com.example.todayschedule.bean.Image;
 import com.example.todayschedule.bean.Notice;
 import com.example.todayschedule.bean.Post;
+import com.example.todayschedule.tool.ArtificialIdiot;
 import com.example.todayschedule.tool.Base64Coder;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
+import java.io.Serializable;
+import java.util.HashMap;
 
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class EditActivity extends AppCompatActivity {
 
@@ -47,9 +62,14 @@ public class EditActivity extends AppCompatActivity {
     //选择图片的Uri
     Uri sel_uri;
 
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_edit);
         if(getIntent().getBooleanExtra("isPost",false)){
             isPost = true;
@@ -58,7 +78,6 @@ public class EditActivity extends AppCompatActivity {
                 isNotice = true;
             }
         }
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//添加默认的返回图标
@@ -134,6 +153,10 @@ public class EditActivity extends AppCompatActivity {
                 public void done(String s, BmobException e) {
                     if(e==null){
                         Toast.makeText(EditActivity.this, "发表成功!", Toast.LENGTH_SHORT).show();
+                        if(ArtificialIdiot.isCallingXiaoAi(post.getContent())){
+                            ArtificialIdiot.getAIResponce(post.getContent(),post.getObjectId());
+                        }
+
                         finish();
                     }else {
                         Toast.makeText(EditActivity.this, "发表失败，错误代码:"+e.getErrorCode(), Toast.LENGTH_SHORT).show();
@@ -153,6 +176,7 @@ public class EditActivity extends AppCompatActivity {
                 public void done(String s, BmobException e) {
                     if(e==null){
                         Toast.makeText(EditActivity.this, "新闻发表成功!", Toast.LENGTH_SHORT).show();
+
                         finish();
                     }else {
                         Toast.makeText(EditActivity.this, "发表失败，错误代码:"+e.getErrorCode(), Toast.LENGTH_SHORT).show();
@@ -168,6 +192,13 @@ public class EditActivity extends AppCompatActivity {
         ConstraintLayout constraintLayout = findViewById(R.id.activiey_edit_layout);
         constraintLayout.setBackgroundColor(getResources().getColor(R.color.white));
     }
+
+
+
+
+
+
+
 
     @Override
     protected void onStop() {

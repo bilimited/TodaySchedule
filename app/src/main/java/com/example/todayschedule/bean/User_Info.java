@@ -1,8 +1,12 @@
 package com.example.todayschedule.bean;
 
+import android.util.Log;
+
 import com.example.todayschedule.TodaySchedule;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import cn.bmob.v3.BmobObject;
@@ -117,7 +121,24 @@ public class User_Info extends BmobObject {
         this.nickName = nickName;
     }
 
+    public static HashMap<String,User_Info> userInfo_cache = new HashMap<>();
+
+    public static void loadToCache(List<User_Info> list){
+        for(User_Info info:list){
+            userInfo_cache.put(info.getObjectId(),info);
+        }
+    }
+
     public static void findUserInfo(String userID,FindListener<User_Info> listener){
+        for(User_Info user_info:userInfo_cache.values()){
+            if(user_info.getUserID().equals(userID)){
+                List<User_Info> templist = new ArrayList<>();
+                templist.add(user_info);
+                listener.done(templist,null);
+                Log.d("test","从本地缓存读取了一条数据");
+                return;
+            }
+        }
         BmobQuery<User_Info> bmobQuery = new BmobQuery<>();
         bmobQuery.addWhereEqualTo("userID", userID);
         bmobQuery.findObjects(listener);

@@ -9,6 +9,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,7 +72,7 @@ public class PostActivity extends AppCompatActivity {
 
         username.setText(post.getAuthor());
         userinfo.setText(post.getAuthorinfo());
-        content.setText(post.getContent());
+        content.setText(Html.fromHtml(post.getContent()));
         likes.setText(String.valueOf(post.getLikes()));
         date.setText(post.getCreatedAt());
         comments.setText(String.valueOf(post.getComments()));
@@ -206,7 +207,7 @@ public class PostActivity extends AppCompatActivity {
         TextView content = v.findViewById(R.id.post_content);
         TextView date = v.findViewById(R.id.date);
         cusername.setText(comment.getAuthor());
-        content.setText(comment.getContent());
+        content.setText(Html.fromHtml(comment.getContent()));
         date.setText(comment.getCreatedAt());
 
         ShapeableImageView portrait = v.findViewById(R.id.portrait);

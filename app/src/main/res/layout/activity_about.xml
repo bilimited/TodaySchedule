@@ -31,8 +31,27 @@
         android:layout_gravity="center"
         android:textColor="@color/text_gray"
         android:autoLink="all"
-        android:text="制作人员名单："
-        android:layout_marginBottom="20dp"/>
+        android:text="@string/introduce_text"
+        android:layout_margin="20dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:textColor="@color/text_gray"
+        android:autoLink="all"
+        android:text="@string/authors_text"
+        android:layout_margin="20dp"/>
+    <TextView
+        android:id="@+id/link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:textColor="@color/blue"
+        android:autoLink="all"
+        android:text="@string/github_link_text"
+        android:layout_margin="20dp"/>
     <ImageView
         android:id="@+id/welcome"
         android:layout_width="wrap_content"

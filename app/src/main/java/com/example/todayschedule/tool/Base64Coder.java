@@ -180,18 +180,23 @@ public class Base64Coder {
     }
 
     public static void LoadProtrait(Activity context,String proID,ImageView imageView){
-        BmobQuery<Portrait> bmobQuery = new BmobQuery<Portrait>();
-        bmobQuery.getObject(proID, new QueryListener<Portrait>() {
-            @Override
-            public void done(Portrait object, BmobException e) {
-                if(e==null){
-                    base64ToImg(context,object.getBase64(), R.drawable.ic_launcher_background,imageView);
-                }else{
-                    Log.d("test","找不到头像资源!");
+        if(Portrait.portrait_cache.containsKey(proID)){
+            base64ToImg(context,Portrait.portrait_cache.get(proID).getBase64(), R.drawable.ic_launcher_background,imageView);
+            Log.d("test","从缓存中读取了一个头像");
+        }else{
+            BmobQuery<Portrait> bmobQuery = new BmobQuery<Portrait>();
+            bmobQuery.getObject(proID, new QueryListener<Portrait>() {
+                @Override
+                public void done(Portrait object, BmobException e) {
+                    if(e==null){
+                        base64ToImg(context,object.getBase64(), R.drawable.ic_launcher_background,imageView);
+                        Portrait.portrait_cache.put(object.getObjectId(),object);
+                    }else{
+                        Log.d("test","找不到头像资源!");
+                    }
                 }
-            }
-        });
-
+            });
+        }
     }
 
 }

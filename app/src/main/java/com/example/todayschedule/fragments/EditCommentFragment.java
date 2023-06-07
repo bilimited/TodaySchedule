@@ -20,6 +20,7 @@ import com.example.todayschedule.R;
 import com.example.todayschedule.TodaySchedule;
 import com.example.todayschedule.bean.Comment;
 import com.example.todayschedule.bean.Post;
+import com.example.todayschedule.tool.ArtificialIdiot;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -81,12 +82,15 @@ public class EditCommentFragment extends BottomSheetDialogFragment {
                         post.getAuthorid(),
                         post.getObjectId()
                         );
+
                 comment.save(new SaveListener<String>() {
                     @Override
                     public void done(String s, BmobException e) {
                         if(e==null){
                             Toast.makeText(getActivity(), "发表成功!", Toast.LENGTH_SHORT).show();
-
+                            if(ArtificialIdiot.isCallingXiaoAi(comment.getContent())){
+                                ArtificialIdiot.getAIResponce(comment.getContent(),comment.getTo_post());
+                            }
                             Post temp = new Post(post.getObjectId());
                             temp.setComments(post.getComments()+1);
                             temp.setLikes(post.getLikes());

@@ -1,5 +1,8 @@
 package com.example.todayschedule.bean;
 
+import java.util.HashMap;
+import java.util.List;
+
 import cn.bmob.v3.BmobObject;
 
 /**
@@ -10,6 +13,14 @@ import cn.bmob.v3.BmobObject;
  * @Version 1.0
  */
 public class Portrait extends BmobObject {
+
+    public static HashMap<String,Portrait> portrait_cache = new HashMap<>();
+
+    public static void loadToCache(List<Portrait> list){
+        for(Portrait info:list){
+            portrait_cache.put(info.getObjectId(),info);
+        }
+    }
 
     String base64;
 

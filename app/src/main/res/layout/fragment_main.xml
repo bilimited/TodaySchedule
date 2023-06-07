@@ -94,7 +94,7 @@
                     android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="今日新闻"
+                    android:text="公告版"
                     android:textColor="@color/black"
                     android:textSize="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"

@@ -294,8 +294,8 @@ public class SettingActivity extends AppCompatActivity {
     private void save(String protraitID) {
         String nickname = nameEditText.getText().toString();
         String realname = realNameEditText.getText().toString();
-        String prov = selectedUniverse;
-        String univ = selectedProvince;
+        String prov = selectedProvince;
+        String univ = selectedUniverse;
 
         String age = String.valueOf(ageSeekBar.getProgress());
         int gender = 0;
