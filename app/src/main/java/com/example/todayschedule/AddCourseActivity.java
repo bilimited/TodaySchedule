@@ -124,7 +124,7 @@ public class AddCourseActivity extends AppCompatActivity {
 
     }
 
-    private void setSpinnerDefaultValue(Spinner spinner, String value) {
+    public static void setSpinnerDefaultValue(Spinner spinner, String value) {
         SpinnerAdapter apsAdapter = spinner.getAdapter();
         int size = apsAdapter.getCount();
         for (int i = 0; i < size; i++) {

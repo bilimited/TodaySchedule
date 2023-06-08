@@ -25,12 +25,15 @@
 
     <color name="cls_1">#E91E63</color>
     <color name="cls_2">#793DB4</color>
-    <color name="cls_3">#72A637</color>
+    <color name="cls_3">#009688</color>
     <color name="cls_4">#C59D57</color>
-    <color name="cls_5">#B43D3D</color>
+    <color name="cls_5">#4CAF50</color>
     <color name="cls_6">#03A9F4</color>
     <color name="cls_7">#3D65B4</color>
     <color name="cls_8">#FF5722</color>
+
+    <color name="note_bg">#FFF6E0</color>
+    <color name="note_bg_deeper">#EFE2BF</color>
 
     <color name="nav_menu_icon">#5E5E5E</color>
     <color name="nav_menu_text">#474747</color>

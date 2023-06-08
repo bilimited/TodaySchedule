@@ -21,9 +21,18 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".AddNoteActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.Dialog"
+            android:label="添加笔记">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".SetBgActivity"
-            android:label="更换背景"
-            android:exported="false">
+            android:exported="false"
+            android:label="更换背景">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -31,7 +40,7 @@
         <activity
             android:name=".AgreementActivity"
             android:exported="false"
-            android:label="食用条款"
+            android:label="使用条款"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.app.lib_name"

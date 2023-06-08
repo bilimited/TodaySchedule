@@ -192,6 +192,9 @@ public class SettingActivity extends AppCompatActivity {
 
         bmobQuery.addWhereEqualTo("userID",TodaySchedule.UserID);
 
+        /**
+         * 载入用户信息
+         */
         bmobQuery.findObjects(new FindListener<User_Info>() {
             @Override
             public void done(List<User_Info> list, BmobException e) {
@@ -281,14 +284,16 @@ public class SettingActivity extends AppCompatActivity {
         if(user_info==null){
             return;
         }
+        selectedProvince = user_info.getProvince();
+        selectedUniverse = user_info.getUniversity();
         nameEditText.setText(user_info.getNickName());
         realNameEditText.setText(user_info.getRealName());
         ageSeekBar.setProgress(Integer.valueOf(user_info.getAge()));
         Base64Coder.LoadProtrait(this,user_info.getPortraitID(),avatarImageView);
-        //TODO:还有一些剩下的
         if(user_info.getGender()==1){
             ((RadioButton) genderRadioGroup.getChildAt(1)).setChecked(true);
         }
+
     }
 
     private void save(String protraitID) {

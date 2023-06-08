@@ -17,29 +17,43 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.todayschedule.bean.Course;
+import com.example.todayschedule.bean.Note;
 import com.example.todayschedule.bean.User_Info;
+
+
 import com.example.todayschedule.fragments.MainFragment;
 import com.example.todayschedule.tool.Base64Coder;
 import com.example.todayschedule.tool.DatabaseHelper;
+import com.example.todayschedule.tool.DragViewUtil;
+import com.example.todayschedule.tool.NoteDialog;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.xujiaji.happybubble.Auto;
+import com.xujiaji.happybubble.BubbleDialog;
+import com.xujiaji.happybubble.BubbleLayout;
+import com.xujiaji.happybubble.Util;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
@@ -48,6 +62,9 @@ import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 
+/**
+ * 不建议改与Note更新相关的代码。。。
+ */
 public class ScheduleActivity extends AppCompatActivity {
 
     //星期几
@@ -67,6 +84,8 @@ public class ScheduleActivity extends AppCompatActivity {
     TextView nav_title;
     TextView nav_subtitle;
     ImageView portrait;
+
+    ConstraintLayout noteContainer;
 
     NavigationView navigationView;
 
@@ -98,10 +117,11 @@ public class ScheduleActivity extends AppCompatActivity {
         DrawerLayout drawerLayout = findViewById(R.id.drawer);
 
         AddCourse = findViewById(R.id.addCourse);
+
         navigationView = findViewById(R.id.nav_view);
-
+        ImageView addNote = findViewById(R.id.addNote);
+        noteContainer = findViewById(R.id.note_container);
         Toolbar toolbar = findViewById(R.id.toolbar);
-
         /**
          * 添加返回图标部分
          */
@@ -121,6 +141,13 @@ public class ScheduleActivity extends AppCompatActivity {
         nav_subtitle = (TextView) nav_header.findViewById(R.id.nav_subtitle);
         portrait = (ImageView)nav_header.findViewById(R.id.shapeableImageView);
 
+        ScrollView scrollView = findViewById(R.id.scrollView2);
+        scrollView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return false;
+            }
+        });
 
         AddCourse.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,6 +171,25 @@ public class ScheduleActivity extends AppCompatActivity {
                     case R.id.nm_from_json:{
                         Intent intent = new Intent(ScheduleActivity.this,InputJsonActivity.class);
                         startActivityForResult(intent,4);
+                        break;
+                    }
+                    case R.id.nm_clear:{
+                        AlertDialog.Builder builder=new AlertDialog.Builder(ScheduleActivity.this);
+                        builder.setMessage("确认清除所有便签?");
+                        builder.setPositiveButton("确认", new DialogInterface.OnClickListener(){
+                            @Override
+                            public void onClick(DialogInterface dialog, int arg1) {
+                                dialog.dismiss();
+                                clearNote();
+                            }
+                        });
+                        builder.setNegativeButton("取消", new DialogInterface.OnClickListener(){
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                        builder.create().show();
                         break;
                     }
                 }
@@ -181,7 +227,16 @@ public class ScheduleActivity extends AppCompatActivity {
 
             }
         });
+        addNote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateNote();
+                Intent intent = new Intent(ScheduleActivity.this,AddNoteActivity.class);
+                startActivityForResult(intent,TodaySchedule.REQUEST_ADD_NOTE);
+            }
+        });
         setBackground(TodaySchedule.background_id);
+        loadNote();
     }
 
     @Override
@@ -507,9 +562,129 @@ public class ScheduleActivity extends AppCompatActivity {
         }
     }
 
+    private void initNote(Note note){
+        DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+        int screenWidth = dm.widthPixels;
+        int screenHeight = dm.heightPixels;
+        note.setPosx(screenWidth/2);
+        note.setPosy(screenHeight/2);
+    }
+
+    /**
+     * 可能是最复杂的一个添加view方法
+     * @param note
+     * @return
+     */
+    private View addNote(Note note){
+        View v = LayoutInflater.from(this).inflate(R.layout.card_note, null);
+        ViewGroup.LayoutParams params = new LinearLayout.LayoutParams(150,150);
+        v.setLayoutParams(params);
+        v.setX(note.getPosx());
+        v.setY(note.getPosy());
+        DragViewUtil.registerDragAction(v, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateNote();
+                BubbleLayout bl = new BubbleLayout(ScheduleActivity.this);
+                //这个方法是不是在侮辱我智商
+                bl.setBubbleColor(Color.rgb(255,246,224));
+                NoteDialog noteDialog = new NoteDialog(ScheduleActivity.this);
+                noteDialog.setNote(note)
+                        //.addContentView(LayoutInflater.from(ScheduleActivity.this).inflate(R.layout.bubble_view, null))
+                        .setBubbleLayout(bl)
+                        .setClickedView(v)
+                        .autoPosition(Auto.LEFT_AND_RIGHT)
+                        .show();
+                noteDialog.setDelListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        delNote(note);
+                        noteDialog.cancel();
+                    }
+                });
+            }
+        });
+
+        noteContainer.addView(v);
+        return v;
+    }
+
+    private void delNote(Note note){
+        Note t = new Note(note);
+        t.delete(new UpdateListener() {
+            @Override
+            public void done(BmobException e) {
+                if(e!=null){
+                    Toast.makeText(ScheduleActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        noteArrayList.get(note).setVisibility(View.GONE);
+        noteArrayList.remove(note);
+    }
+
+    private void clearNote(){
+        for(Note note:noteArrayList.keySet()){
+            Note t = new Note(note);
+            t.delete(new UpdateListener() {
+                @Override
+                public void done(BmobException e) {
+                    if(e!=null){
+                        Toast.makeText(ScheduleActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+            noteArrayList.get(note).setVisibility(View.GONE);
+        }
+        noteArrayList.clear();
+    }
+
+    private HashMap<Note,View> noteArrayList = new HashMap<>();
+
+    private void loadNote(){
+        if(TodaySchedule.isLogged()){
+            noteContainer.removeAllViews();
+            noteArrayList.clear();
+            BmobQuery<Note> bmobQuery = new BmobQuery<>();
+            bmobQuery.addWhereEqualTo("userid",TodaySchedule.UserID);
+            bmobQuery.findObjects(new FindListener<Note>() {
+                @Override
+                public void done(List<Note> list, BmobException e) {
+                    for(Note note:list){
+                        noteArrayList.put(note,addNote(note));
+                    }
+                }
+            });
+        }
+    }
+
+    private void updateNote(){
+        for(Note note:noteArrayList.keySet()){
+            Note newNote = new Note(note);
+            View tempv = noteArrayList.get(note);
+            newNote.setPosx(tempv.getX());
+            newNote.setPosy(tempv.getY());
+            newNote.update(new UpdateListener() {
+                @Override
+                public void done(BmobException e) {
+                    if(e!=null){
+                        Toast.makeText(ScheduleActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+    }
+
     private void clearData(){
         SQLiteDatabase sqLiteDatabase = databaseHelper.getWritableDatabase();
         sqLiteDatabase.execSQL("Delete from courses where 1=1");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        updateNote();
     }
 
     //ToolBar相关
@@ -623,6 +798,25 @@ public class ScheduleActivity extends AppCompatActivity {
 
         if(requestCode == TodaySchedule.REQUEST_PUT_JSON && resultCode == Activity.RESULT_OK && data != null){
             fromJson(data.getStringExtra("json"),data.getBooleanExtra("isSave",false));
+        }
+
+        if(requestCode == TodaySchedule.REQUEST_ADD_NOTE && resultCode == Activity.RESULT_OK && data != null){
+            Note note = (Note) data.getSerializableExtra("newNote");
+            initNote(note);
+
+            //addNote(note);
+            note.save(new SaveListener<String>() {
+                @Override
+                public void done(String s, BmobException e) {
+                    if(e!=null){
+                        Toast.makeText(ScheduleActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }else {
+                        //updateNote();
+                        loadNote();
+                        //noteArrayList.put(note,addNote(note));
+                    }
+                }
+            });
         }
 
     }

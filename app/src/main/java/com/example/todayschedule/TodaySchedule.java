@@ -48,6 +48,7 @@ public class TodaySchedule extends Application {
 
     public static final int REQUEST_SELECT_PIC = 2;
     public static final int REQUEST_PUT_JSON = 4;
+    public static final int REQUEST_ADD_NOTE = 5;
 
     /**
      * 检查用户是否登录。

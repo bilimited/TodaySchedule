@@ -52,14 +52,15 @@
     <ImageView
         android:id="@+id/RegisterTitle"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="-10dp"
-        android:src="@drawable/todaysch"
+        android:layout_height="100dp"
         android:layout_marginLeft="60dp"
         android:layout_marginRight="60dp"
+        android:layout_marginBottom="-10dp"
+        android:src="@drawable/icon_white"
         app:layout_constraintBottom_toTopOf="@+id/AccountText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/LoginButton"

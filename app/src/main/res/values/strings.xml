@@ -64,7 +64,7 @@
     <string name="introduce_text">
         "今日课表"是一款面向学生的安卓应用程序，它可以帮助学生管理和规划自己的学习日程。用户可以在应用内设置自己的课程计划，包括课程名称、时间和地点，方便地了解每天的上课情况。同时，"今日课表"还提供最新的校园新闻和公告，让用户时刻保持对学校的动态熟悉和了解。此外，应用还提供了学生论坛功能，用户可以在这里互相交流，分享学习经验和心得体会。"今日课表"是一款极为简单易用的应用程序，让用户更轻松自如地管理自己的学习生活。
     </string>
-    <string name="authors_text">制作人员名单:xxx xxx xxx xxx xxx xxx</string>
+    <string name="authors_text">制作人员名单:赵笑阳 宋佳航 李森 吴怡婧 赵维莹 王旭辉 高建斌</string>
     <string name="github_link_text">
         如果你闲得无聊，可以去我们的github页面上点个star!
     </string>

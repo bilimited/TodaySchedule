@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:title="同步">
+    <item android:title="便签">
         <menu>
             <item
-                android:icon="@drawable/cloud_download"
+                android:icon="@drawable/del"
                 android:iconTint="@color/nav_icon"
-                android:id="@+id/nm_sync"
-                android:title="同步至本地" />
-            <item
-                android:icon="@drawable/cloud_upload"
-                android:iconTint="@color/nav_icon"
-                android:id="@+id/nm_upload"
-                android:title="同步至云端" />
+                android:id="@+id/nm_clear"
+                android:title="清除全部" />
         </menu>
 
     </item>

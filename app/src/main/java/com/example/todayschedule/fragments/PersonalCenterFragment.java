@@ -143,7 +143,6 @@ public class PersonalCenterFragment extends Fragment {
                             Intent intent = new Intent(getContext(), LoginActivity.class);
                             startActivity(intent);
                         }
-
                     });
                     builder.setNegativeButton("取消", new DialogInterface.OnClickListener(){
                         @Override

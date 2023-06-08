@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ImageView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="30dp"
-    android:layout_height="30dp">
-    <androidx.constraintlayout.utils.widget.ImageFilterView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/note"
-        android:tint="@color/blue"/>
-</FrameLayout>
+    android:layout_height="30dp"
+    android:src="@drawable/img_note"
+    android:clickable="true">
+
+</ImageView>
