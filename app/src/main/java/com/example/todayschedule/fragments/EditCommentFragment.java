@@ -88,10 +88,13 @@ public class EditCommentFragment extends BottomSheetDialogFragment {
                     public void done(String s, BmobException e) {
                         if(e==null){
                             Toast.makeText(getActivity(), "发表成功!", Toast.LENGTH_SHORT).show();
+                            Post temp = new Post(post.getObjectId());
                             if(ArtificialIdiot.isCallingXiaoAi(comment.getContent())){
                                 ArtificialIdiot.getAIResponce(comment.getContent(),comment.getTo_post());
+                                temp.setComments(post.getComments()+1);
+                                post.setComments(post.getComments()+1);
                             }
-                            Post temp = new Post(post.getObjectId());
+
                             temp.setComments(post.getComments()+1);
                             temp.setLikes(post.getLikes());
                             post.setComments(post.getComments()+1);

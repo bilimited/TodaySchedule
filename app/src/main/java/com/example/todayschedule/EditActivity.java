@@ -141,12 +141,17 @@ public class EditActivity extends AppCompatActivity {
 
     private void save(String imgID){
         if(isPost){
-            Post post = new Post(
-                    edit_content.getText().toString(),
+            Post post = new Post("<h1>"+
+                            edit_title.getText().toString()+
+                            "</h1>"
+                            +edit_content.getText().toString(),
                     0,
                     TodaySchedule.LoggedAccount,
                     "无",
                     TodaySchedule.UserID);
+            if(ArtificialIdiot.isCallingXiaoAi(post.getContent())){
+                post.setComments(1);
+            }
             post.setImgID(imgID);
             post.save(new SaveListener<String>() {
                 @Override
@@ -156,7 +161,6 @@ public class EditActivity extends AppCompatActivity {
                         if(ArtificialIdiot.isCallingXiaoAi(post.getContent())){
                             ArtificialIdiot.getAIResponce(post.getContent(),post.getObjectId());
                         }
-
                         finish();
                     }else {
                         Toast.makeText(EditActivity.this, "发表失败，错误代码:"+e.getErrorCode(), Toast.LENGTH_SHORT).show();
@@ -192,13 +196,6 @@ public class EditActivity extends AppCompatActivity {
         ConstraintLayout constraintLayout = findViewById(R.id.activiey_edit_layout);
         constraintLayout.setBackgroundColor(getResources().getColor(R.color.white));
     }
-
-
-
-
-
-
-
 
     @Override
     protected void onStop() {

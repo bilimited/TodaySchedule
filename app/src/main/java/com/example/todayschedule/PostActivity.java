@@ -103,7 +103,9 @@ public class PostActivity extends AppCompatActivity {
                                             temp.delete(new UpdateListener() {
                                                 @Override
                                                 public void done(BmobException e) {
-                                                    Toast.makeText(PostActivity.this, "评论删除错误:"+e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                    if(e!=null){
+                                                        Toast.makeText(PostActivity.this, "评论删除错误:"+e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                    }
                                                 }
                                             });
                                         }
